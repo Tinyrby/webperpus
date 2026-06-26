@@ -138,6 +138,9 @@
                     } else if (currentType === 'jurnal') {
                         input.placeholder = 'Cari di Jurnal UNG...';
                         input.name = 'simpleQuery';
+                    } else if (currentType === 'repo') {
+                        input.placeholder = 'Cari di Repository UNG...';
+                        input.name = 'keyword';
                     } else if (currentType === 'katalog') {
                         input.placeholder = 'Cari di Katalog Perpustakaan...';
                         input.name = 'keyword';
@@ -191,6 +194,13 @@
                     if (query.trim() !== '') {
                         const jurnalUrl = `https://ejurnal.ung.ac.id/index.php/index/search/search?simpleQuery=${encodeURIComponent(query)}&searchField=query`;
                         window.open(jurnalUrl, '_blank');
+                    }
+                } else if (currentType === 'repo') {
+                    e.preventDefault();
+                    const query = input.value;
+                    if (query.trim() !== '') {
+                        const repoUrl = `https://repository.ung.ac.id/data/cari/${encodeURIComponent(query)}`;
+                        window.open(repoUrl, '_blank');
                     }
                 }
             });
