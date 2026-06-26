@@ -23,6 +23,7 @@
                     <th style="padding: 1rem;">Judul Buku</th>
                     <th style="padding: 1rem;">Penulis</th>
                     <th style="padding: 1rem;">Penerbit (Tahun)</th>
+                    <th style="padding: 1rem;">Status</th>
                     <th style="padding: 1rem;">ISBN</th>
                     <th style="padding: 1rem; width: 100px;">Aksi</th>
                 </tr>
@@ -42,6 +43,13 @@
                     <td style="padding: 1rem; color: #475569;">
                         {{ $book->publisher ?? '-' }} 
                         @if($book->publication_year) ({{ $book->publication_year }}) @endif
+                    </td>
+                    <td style="padding: 1rem;">
+                        @if($book->is_available)
+                            <span style="background-color: #dcfce7; color: #166534; padding: 0.2rem 0.5rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 500;">Tersedia</span>
+                        @else
+                            <span style="background-color: #fee2e2; color: #991b1b; padding: 0.2rem 0.5rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 500;">Tidak Tersedia</span>
+                        @endif
                     </td>
                     <td style="padding: 1rem; color: #475569;">{{ $book->isbn ?? '-' }}</td>
                     <td style="padding: 1rem;">

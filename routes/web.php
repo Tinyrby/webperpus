@@ -13,8 +13,12 @@ use App\Http\Controllers\BookSuggestionController;
 use App\Http\Controllers\AdminBookSuggestionController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\AdminFeedbackController;
+use App\Http\Controllers\CatalogController;
+use App\Http\Controllers\AdminCategoryController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/katalog', [CatalogController::class, 'index'])->name('katalog.search');
+Route::get('/katalog/{book}', [CatalogController::class, 'show'])->name('katalog.show');
 Route::get('/cek-pinjaman', [LoanController::class, 'index'])->name('cek-pinjaman');
 Route::get('/usulan-buku', [BookSuggestionController::class, 'index'])->name('usulan-buku.index');
 Route::post('/usulan-buku', [BookSuggestionController::class, 'store'])->name('usulan-buku.store');
@@ -25,6 +29,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('dashboard');
     
     Route::resource('facilities', FacilityController::class)->except(['show']);
+    Route::resource('categories', AdminCategoryController::class)->except(['show']);
     Route::resource('members', AdminMemberController::class)->except(['show']);
     Route::resource('books', AdminBookController::class)->except(['show']);
     Route::resource('loans', AdminLoanController::class)->except(['show']);

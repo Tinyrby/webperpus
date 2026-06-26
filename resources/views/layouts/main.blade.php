@@ -63,9 +63,10 @@
                         </div>
                     </div>
                 </li>
-                <li><a href="#" class="nav-link">Panduan <i class="fa-solid fa-chevron-down nav-chevron"></i></a></li>
-                <li><a href="#" class="nav-link">E-Resources <i class="fa-solid fa-chevron-down nav-chevron"></i></a></li>
-                <li><a href="#" class="nav-link">Tentang Kami <i class="fa-solid fa-chevron-down nav-chevron"></i></a></li>
+                <li><a href="#">Panduan <i class="fa-solid fa-chevron-down" style="font-size:0.7em;"></i></a></li>
+                <li><a href="#">E-Resources <i class="fa-solid fa-chevron-down" style="font-size:0.7em;"></i></a></li>
+                <li><a href="#">Tentang Kami <i class="fa-solid fa-chevron-down" style="font-size:0.7em;"></i></a></li>
+                <li><a href="#">Bantuan <i class="fa-solid fa-chevron-down" style="font-size:0.7em;"></i></a></li>
             </ul>
 
             <div class="nav-actions">
@@ -113,7 +114,7 @@
             <div class="footer-col">
                 <h4 class="footer-title">E-RESOURCES</h4>
                 <ul class="footer-links">
-                    <li><a href="#">Katalog Online</a></li>
+                    <li><a href="{{ route('katalog.search') }}">Katalog Online</a></li>
                     <li><a href="#">e-Journal</a></li>
                     <li><a href="#">Digital Repository</a></li>
                 </ul>

@@ -38,6 +38,7 @@
             <a href="{{ route('admin.dashboard') }}" class="admin-nav-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}"><i class="fa-solid fa-gauge"></i> Dashboard</a>
             <a href="{{ route('admin.facilities.index') }}" class="admin-nav-item {{ request()->routeIs('admin.facilities.*') ? 'active' : '' }}"><i class="fa-solid fa-building"></i> Fasilitas</a>
             <a href="{{ route('admin.members.index') }}" class="admin-nav-item {{ request()->routeIs('admin.members.*') ? 'active' : '' }}"><i class="fa-solid fa-users"></i> Data Keanggotaan</a>
+            <a href="{{ route('admin.categories.index') }}" class="admin-nav-item {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}"><i class="fa-solid fa-tags"></i> Kategori / Subjek</a>
             <a href="{{ route('admin.books.index') }}" class="admin-nav-item {{ request()->routeIs('admin.books.*') ? 'active' : '' }}"><i class="fa-solid fa-book"></i> Katalog Buku</a>
             <a href="{{ route('admin.loans.index') }}" class="admin-nav-item {{ request()->routeIs('admin.loans.*') ? 'active' : '' }}"><i class="fa-solid fa-book-open-reader"></i> Data Pinjaman</a>
             <a href="{{ route('admin.book-suggestions.index') }}" class="admin-nav-item {{ request()->routeIs('admin.book-suggestions.*') ? 'active' : '' }}"><i class="fa-solid fa-envelope-open-text"></i> Usulan Buku</a>

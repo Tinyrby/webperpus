@@ -18,9 +18,9 @@
                 <button class="btn-pill" data-type="cek-pinjaman">Cek Pinjaman</button>
             </div>
 
-            <form id="hero-search-form" action="#" method="GET" class="search-container" style="display: flex; margin: 0; padding: 0; background: none; box-shadow: none;">
+            <form id="hero-search-form" action="{{ route('katalog.search') }}" method="GET" class="search-container" style="display: flex; margin: 0; padding: 0; background: none; box-shadow: none;">
                 <div class="search-container" style="flex: 1; width: 100%;">
-                    <input type="text" name="q" id="hero-search-input" class="search-input" placeholder="Cari di Katalog Perpustakaan...">
+                    <input type="text" name="keyword" id="hero-search-input" class="search-input" placeholder="Cari di Katalog Perpustakaan...">
                     <button type="submit" class="search-btn"><i class="fa-solid fa-magnifying-glass"></i> Cari</button>
                 </div>
             </form>
@@ -132,10 +132,14 @@
                     input.placeholder = 'Masukkan NIM...';
                     input.name = 'nim';
                     form.action = "{{ route('cek-pinjaman') }}";
+                } else if (type === 'katalog') {
+                    input.placeholder = 'Cari di Katalog Perpustakaan...';
+                    input.name = 'keyword';
+                    form.action = "{{ route('katalog.search') }}";
                 } else {
                     input.placeholder = 'Cari di Katalog Perpustakaan...';
                     input.name = 'keyword';
-                    form.action = "#"; // Replace with route('katalog') when implemented
+                    form.action = "{{ route('katalog.search') }}";
                 }
                 
                 input.focus();
