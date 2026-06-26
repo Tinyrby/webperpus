@@ -25,6 +25,22 @@
                 </div>
             </form>
         </div>
+
+        {{-- Diagonal Slash Shape --}}
+        <div class="hero-wave">
+            {{-- Layer 1: shadow/depth tipis navy --}}
+            <svg viewBox="0 0 1440 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="position:absolute;bottom:0;left:0;width:100%;">
+                <polygon points="0,100 1440,28 1440,100" fill="rgba(13,27,42,0.25)"/>
+            </svg>
+            {{-- Layer 2: aksen garis merah tipis --}}
+            <svg viewBox="0 0 1440 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="position:absolute;bottom:0;left:0;width:100%;">
+                <polygon points="0,100 1440,42 1440,46 0,104" fill="#CC0001" opacity="0.7"/>
+            </svg>
+            {{-- Layer 3: fill warna background utama --}}
+            <svg viewBox="0 0 1440 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display:block;width:100%;position:relative;">
+                <polygon points="0,100 1440,48 1440,100" fill="#F7F8FC"/>
+            </svg>
+        </div>
     </section>
 
     <!-- Services Section -->
