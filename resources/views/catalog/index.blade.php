@@ -66,7 +66,11 @@
                                 <!-- Ketersediaan -->
                                 <div style="width: 140px; border-left: 1px solid #e2e8f0; padding-left: 1.5rem; margin-left: 1.5rem; display: flex; flex-direction: column; align-items: center; justify-content: center;">
                                     <span style="font-size: 0.75rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">Ketersediaan</span>
-                                    <span style="font-size: 2.5rem; font-weight: 300; color: #334155; margin: 0.5rem 0 1rem;">{{ $book->is_available ? '1' : '0' }}</span>
+                                    @if($book->is_available)
+                                        <span style="font-size: 1.1rem; font-weight: 600; color: #38bdf8; margin: 1rem 0 1.5rem;">Tersedia</span>
+                                    @else
+                                        <span style="font-size: 1.1rem; font-weight: 600; color: #fbbf24; margin: 1rem 0 1.5rem;">Dipinjam</span>
+                                    @endif
                                     <a href="{{ route('katalog.show', $book->id) }}" style="display: block; width: 100%; text-align: center; border: 1px solid #3b82f6; color: #3b82f6; padding: 0.5rem; border-radius: 4px; text-decoration: none; font-size: 0.85rem; margin-bottom: 0.5rem; transition: background 0.2s;" onmouseover="this.style.background='#eff6ff'" onmouseout="this.style.background='transparent'">Tampilkan Detail</a>
                                     <a href="#" style="display: block; width: 100%; text-align: center; border: 1px solid #cbd5e1; color: #64748b; padding: 0.5rem; border-radius: 4px; text-decoration: none; font-size: 0.85rem; transition: background 0.2s;" onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background='transparent'">Sitasi</a>
                                 </div>
@@ -146,38 +150,30 @@
         </div>
     @else
         <!-- Tampilan Default (Bukan Pencarian) -->
+        @php
+            $categoryIcons = [
+                1 => '🖥️🌐', 2 => '🧠💭', 3 => '🕌⛪', 4 => '📜🏅', 5 => '🗣️🌐', 
+                6 => '📐🔬', 7 => '💻📈', 8 => '🎨🎭', 9 => '🍎📚', 10 => '⏱️🌍'
+            ];
+            $mainCategoryIds = [9, 4, 7, 8];
+        @endphp
 
         <!-- Subjects / Subjek Menarik -->
         <div style="margin-bottom: 4rem; text-align: center;">
             <h3 style="font-size: 1.2rem; color: #64748b; font-weight: 400; margin-bottom: 2rem;">Pilih subjek yang menarik bagi Anda</h3>
             
             <div style="display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap;">
-                <!-- Kesusastraan -->
-                <a href="{{ route('katalog.search', ['keyword' => 'Kesusastraan', 'search_type' => 'category']) }}" class="subject-card">
-                    <div class="subject-icon">🍎📚</div>
-                    <div class="subject-text">Kesusastraan</div>
+                @foreach($categories->whereIn('id', $mainCategoryIds) as $cat)
+                <a href="{{ route('katalog.search', ['keyword' => $cat->name, 'search_type' => 'category']) }}" class="subject-card">
+                    <div class="subject-icon">{{ $categoryIcons[$cat->id] ?? '📚✨' }}</div>
+                    <div class="subject-text">{{ $cat->name }}</div>
                 </a>
-                <!-- Ilmu Sosial -->
-                <a href="{{ route('katalog.search', ['keyword' => 'Ilmu-ilmu Sosial', 'search_type' => 'category']) }}" class="subject-card">
-                    <div class="subject-icon">📜🏅</div>
-                    <div class="subject-text">Ilmu-ilmu Sosial</div>
-                </a>
-                <!-- Ilmu Terapan -->
-                <a href="{{ route('katalog.search', ['keyword' => 'Ilmu-ilmu Terapan', 'search_type' => 'category']) }}" class="subject-card">
-                    <div class="subject-icon">💻📈</div>
-                    <div class="subject-text">Ilmu-ilmu Terapan</div>
-                </a>
-                <!-- Kesenian & Hiburan -->
-                <a href="{{ route('katalog.search', ['keyword' => 'Kesenian', 'search_type' => 'category']) }}" class="subject-card">
-                    <div class="subject-icon">🎨🎭</div>
-                    <div class="subject-text">Kesenian, Hiburan</div>
-                </a>
+                @endforeach
+                
                 <!-- Lainnya -->
                 <a href="javascript:void(0)" class="subject-card" onclick="document.getElementById('subjectModal').style.display='flex'">
-                    <div class="subject-icon" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 15px;">
-                        <span style="background: #334155; border-radius: 2px;"></span><span style="background: #334155; border-radius: 2px;"></span><span style="background: #334155; border-radius: 2px;"></span>
-                        <span style="background: #334155; border-radius: 2px;"></span><span style="background: #334155; border-radius: 2px;"></span><span style="background: #334155; border-radius: 2px;"></span>
-                        <span style="background: #334155; border-radius: 2px;"></span><span style="background: #334155; border-radius: 2px;"></span><span style="background: #334155; border-radius: 2px;"></span>
+                    <div class="subject-icon">
+                        <i class="fa-solid fa-ellipsis" style="font-size: 2.5rem; color: #64748b;"></i>
                     </div>
                     <div class="subject-text">Lihat lainnya..</div>
                 </a>
@@ -193,46 +189,12 @@
                 </div>
                 <div style="padding: 2rem;">
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1.5rem; justify-items: center;">
-                        <a href="{{ route('katalog.search', ['keyword' => 'Karya Umum', 'search_type' => 'category']) }}" class="subject-card">
-                            <div class="subject-icon">🖥️🌐</div>
-                            <div class="subject-text">Karya Umum</div>
+                        @foreach($categories as $cat)
+                        <a href="{{ route('katalog.search', ['keyword' => $cat->name, 'search_type' => 'category']) }}" class="subject-card">
+                            <div class="subject-icon">{{ $categoryIcons[$cat->id] ?? '📚✨' }}</div>
+                            <div class="subject-text">{{ $cat->name }}</div>
                         </a>
-                        <a href="{{ route('katalog.search', ['keyword' => 'Filsafat', 'search_type' => 'category']) }}" class="subject-card">
-                            <div class="subject-icon">🧠💭</div>
-                            <div class="subject-text">Filsafat</div>
-                        </a>
-                        <a href="{{ route('katalog.search', ['keyword' => 'Agama', 'search_type' => 'category']) }}" class="subject-card">
-                            <div class="subject-icon">🕌⛪</div>
-                            <div class="subject-text">Agama</div>
-                        </a>
-                        <a href="{{ route('katalog.search', ['keyword' => 'Ilmu-ilmu Sosial', 'search_type' => 'category']) }}" class="subject-card">
-                            <div class="subject-icon">📜🏅</div>
-                            <div class="subject-text">Ilmu-ilmu Sosial</div>
-                        </a>
-                        <a href="{{ route('katalog.search', ['keyword' => 'Bahasa', 'search_type' => 'category']) }}" class="subject-card">
-                            <div class="subject-icon">🗣️🌐</div>
-                            <div class="subject-text">Bahasa</div>
-                        </a>
-                        <a href="{{ route('katalog.search', ['keyword' => 'Ilmu-ilmu Murni', 'search_type' => 'category']) }}" class="subject-card">
-                            <div class="subject-icon">📐🔬</div>
-                            <div class="subject-text">Ilmu-ilmu Murni</div>
-                        </a>
-                        <a href="{{ route('katalog.search', ['keyword' => 'Ilmu-ilmu Terapan', 'search_type' => 'category']) }}" class="subject-card">
-                            <div class="subject-icon">💻📈</div>
-                            <div class="subject-text">Ilmu-ilmu Terapan</div>
-                        </a>
-                        <a href="{{ route('katalog.search', ['keyword' => 'Kesenian', 'search_type' => 'category']) }}" class="subject-card">
-                            <div class="subject-icon">🎨🎭</div>
-                            <div class="subject-text">Kesenian, Hiburan, dan Olahraga</div>
-                        </a>
-                        <a href="{{ route('katalog.search', ['keyword' => 'Kesusastraan', 'search_type' => 'category']) }}" class="subject-card">
-                            <div class="subject-icon">🍎📚</div>
-                            <div class="subject-text">Kesusastraan</div>
-                        </a>
-                        <a href="{{ route('katalog.search', ['keyword' => 'Geografi dan Sejarah', 'search_type' => 'category']) }}" class="subject-card">
-                            <div class="subject-icon">⏱️🌍</div>
-                            <div class="subject-text">Geografi dan Sejarah</div>
-                        </a>
+                        @endforeach
                     </div>
                 </div>
                 <div style="padding: 1rem 2rem; border-top: 1px solid #e2e8f0; text-align: right; font-size: 0.8rem; color: #94a3b8;">
@@ -246,13 +208,11 @@
             <h2 style="font-size: 1.5rem; color: #1e293b; font-weight: 600; margin-bottom: 0.5rem;">Yang populer di antara koleksi kami</h2>
             <p style="color: #64748b; font-size: 0.9rem; margin-bottom: 1.5rem;">Koleksi-koleksi kami yang dibaca oleh banyak pengunjung perpustakaan. Mari berkunjung dan membacanya.</p>
             
-            <!-- Tags (Contoh) -->
+            <!-- Tags -->
             <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem;">
-                <span class="catalog-tag">Biologi Perairan</span>
-                <span class="catalog-tag">Pendidikan Kewarganegaraan</span>
-                <span class="catalog-tag">Sains - Pembelajaran - Kurikulum 2013</span>
-                <span class="catalog-tag">Romansa</span>
-                <span class="catalog-tag">Matematika Analisis</span>
+                @foreach($categories->shuffle()->take(5) as $tagCat)
+                    <a href="{{ route('katalog.search', ['keyword' => $tagCat->name, 'search_type' => 'category']) }}" class="catalog-tag" style="text-decoration: none; display: inline-block;">{{ $tagCat->name }}</a>
+                @endforeach
             </div>
 
             <!-- Books Grid -->
@@ -268,13 +228,11 @@
             <h2 style="font-size: 1.5rem; color: #1e293b; font-weight: 600; margin-bottom: 0.5rem;">Koleksi baru dan diperbarui</h2>
             <p style="color: #64748b; font-size: 0.9rem; margin-bottom: 1.5rem;">Merupakan daftar koleksi terbaru kami. Mari semuanya buka, telusuri koleksi yang baru di sistem kami. Selamat menikmati!</p>
             
-            <!-- Tags (Contoh) -->
+            <!-- Tags -->
             <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem;">
-                <span class="catalog-tag">PENDIDIKAN - IPS - KTSP</span>
-                <span class="catalog-tag">Lingkungan</span>
-                <span class="catalog-tag">TEKNIK - JALAN RAYA - LANSKAP - KEBISINGAN</span>
-                <span class="catalog-tag">NOVEL - FIKSI</span>
-                <span class="catalog-tag">Perikanan</span>
+                @foreach($categories->shuffle()->take(5) as $tagCat)
+                    <a href="{{ route('katalog.search', ['keyword' => $tagCat->name, 'search_type' => 'category']) }}" class="catalog-tag" style="text-decoration: none; display: inline-block;">{{ $tagCat->name }}</a>
+                @endforeach
             </div>
 
             <!-- Books Grid -->

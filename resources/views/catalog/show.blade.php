@@ -47,20 +47,13 @@
             <!-- Ketersediaan -->
             <div style="margin-bottom: 3rem;">
                 <h3 style="font-size: 1.1rem; color: #1e293b; margin-bottom: 1rem; font-weight: 600;">Ketersediaan</h3>
-                <table style="width: 100%; border-collapse: collapse; border: 1px solid #e2e8f0; font-size: 0.9rem;">
-                    <tr style="background: #f8fafc;">
-                        <td style="padding: 0.8rem; border: 1px solid #e2e8f0; color: #475569;">{{ sprintf('%05d', $book->id) }}/{{ date('y') }}</td>
-                        <td style="padding: 0.8rem; border: 1px solid #e2e8f0; color: #475569;">{{ substr(strtoupper($book->title), 0, 3) }}</td>
-                        <td style="padding: 0.8rem; border: 1px solid #e2e8f0; color: #475569;">My Library (UPA PERPUSTAKAAN UNG)</td>
-                        <td style="padding: 0.8rem; border: 1px solid #e2e8f0; font-weight: 600; text-align: center;">
-                            @if($book->is_available)
-                                <span style="background: #38bdf8; color: white; padding: 0.2rem 0.8rem; border-radius: 4px; font-size: 0.8rem;">Tersedia</span>
-                            @else
-                                <span style="background: #fbbf24; color: white; padding: 0.2rem 0.8rem; border-radius: 4px; font-size: 0.8rem;">Dipinjam</span>
-                            @endif
-                        </td>
-                    </tr>
-                </table>
+                <div>
+                    @if($book->is_available)
+                        <span style="background: #38bdf8; color: white; padding: 0.4rem 1.2rem; border-radius: 4px; font-size: 0.95rem; font-weight: 600; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">Tersedia</span>
+                    @else
+                        <span style="background: #fbbf24; color: white; padding: 0.4rem 1.2rem; border-radius: 4px; font-size: 0.95rem; font-weight: 600; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">Dipinjam</span>
+                    @endif
+                </div>
             </div>
 
             <!-- Informasi Detail -->
