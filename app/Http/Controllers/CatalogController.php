@@ -24,16 +24,16 @@ class CatalogController extends Controller
 
         $searchResults = $keyword ? $query->paginate(12) : null;
 
-        // Fetch popular books (mocked by random or latest for now)
-        $popularBooks = Book::inRandomOrder()->take(6)->get();
+        if (!$keyword) {
+            $popularBooks = Book::with('category')->withCount('loans')->orderBy('loans_count', 'desc')->take(6)->get();
+            $newBooks = Book::with('category')->orderBy('created_at', 'desc')->take(6)->get();
+            $topMembers = Member::withCount('loans')->orderBy('loans_count', 'desc')->take(4)->get();
+            $categories = \App\Models\Category::all();
+            
+            return view('catalog.index', compact('keyword', 'searchResults', 'popularBooks', 'newBooks', 'topMembers', 'categories'));
+        }
 
-        // Fetch latest books
-        $newBooks = Book::orderBy('created_at', 'desc')->take(6)->get();
-
-        // Fetch top members (mocked by random)
-        $topMembers = Member::inRandomOrder()->take(3)->get();
-
-        return view('catalog.index', compact('keyword', 'searchResults', 'popularBooks', 'newBooks', 'topMembers'));
+        return view('catalog.index', compact('keyword', 'searchResults'));
     }
 
     public function show(Book $book)
