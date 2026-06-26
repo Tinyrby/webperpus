@@ -1,48 +1,6 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perpustakaan UNG - Universitas Negeri Gorontalo</title>
-    <!-- Google Fonts: Outfit -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-</head>
-<body>
+@extends('layouts.main')
 
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="nav-brand">
-            <!-- Using UNG Logo from local storage -->
-            <img src="{{ asset('images/logo.png') }}" alt="Logo UNG" style="height: 40px;">
-            Perpustakaan UNG
-        </div>
-        <div class="nav-center-wrapper">
-            <ul class="nav-menu">
-                <li><a href="#">Beranda</a></li>
-                <li><a href="#">Layanan <i class="fa-solid fa-chevron-down" style="font-size:0.7em;"></i></a></li>
-                <li><a href="#">Panduan <i class="fa-solid fa-chevron-down" style="font-size:0.7em;"></i></a></li>
-                <li><a href="#">E-Resources <i class="fa-solid fa-chevron-down" style="font-size:0.7em;"></i></a></li>
-                <li><a href="#">Tentang Kami <i class="fa-solid fa-chevron-down" style="font-size:0.7em;"></i></a></li>
-                <li><a href="#">Bantuan <i class="fa-solid fa-chevron-down" style="font-size:0.7em;"></i></a></li>
-            </ul>
-            <div class="lang-flags">
-                <img src="https://flagcdn.com/w40/id.png" alt="Indonesian">
-                <img src="https://flagcdn.com/w40/gb.png" alt="English">
-            </div>
-        </div>
-        
-        <div class="nav-right" style="display: flex; align-items: center; position: relative; width: 70px;">
-            <!-- Simpan gambar yang baru saja Anda unggah ke dalam folder: c:\laragon\www\WebPerpus\public\images\akreditasi.png -->
-            <img src="{{ asset('images/akreditasi.png') }}" alt="Terakreditasi A" style="position: absolute; right: 0; top: -35px; height: 95px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15)); z-index: 1001;">
-        </div>
-    </nav>
-
+@section('content')
     <!-- Hero Section -->
     <section class="hero" @if(isset($heroImage) && $heroImage->value) style="background: linear-gradient(to right, rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.4)), url('{{ asset('storage/' . $heroImage->value) }}') center/cover no-repeat;" @endif>
         <div class="hero-content">
@@ -50,20 +8,22 @@
             <p class="hero-subtitle">Perpustakaan yang inovatif dan unggul dalam informasi dan edukasi</p>
             
             <div class="hero-buttons">
-                <button class="btn-pill active">Akses Katalog</button>
-                <button class="btn-pill">Jurnal UNG</button>
-                <button class="btn-pill">Repository UNG</button>
-                <button class="btn-pill">One Search</button>
-                <button class="btn-pill">ScienceDirect</button>
-                <button class="btn-pill">Oxford Academic</button>
-                <button class="btn-pill">DOAJ</button>
-                <button class="btn-pill">Cek Pinjaman</button>
+                <button class="btn-pill active" data-type="katalog">Akses Katalog</button>
+                <button class="btn-pill" data-type="jurnal">Jurnal UNG</button>
+                <button class="btn-pill" data-type="repo">Repository UNG</button>
+                <button class="btn-pill" data-type="onesearch">One Search</button>
+                <button class="btn-pill" data-type="sciencedirect">ScienceDirect</button>
+                <button class="btn-pill" data-type="oxford">Oxford Academic</button>
+                <button class="btn-pill" data-type="doaj">DOAJ</button>
+                <button class="btn-pill" data-type="cek-pinjaman">Cek Pinjaman</button>
             </div>
 
-            <div class="search-container">
-                <input type="text" class="search-input" placeholder="Cari di Katalog Perpustakaan...">
-                <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i> Cari</button>
-            </div>
+            <form id="hero-search-form" action="#" method="GET" class="search-container" style="display: flex; margin: 0; padding: 0; background: none; box-shadow: none;">
+                <div class="search-container" style="flex: 1; width: 100%;">
+                    <input type="text" name="q" id="hero-search-input" class="search-input" placeholder="Cari di Katalog Perpustakaan...">
+                    <button type="submit" class="search-btn"><i class="fa-solid fa-magnifying-glass"></i> Cari</button>
+                </div>
+            </form>
         </div>
     </section>
 
@@ -130,6 +90,41 @@
             @endforelse
         </div>
     </section>
+@endsection
 
-</body>
-</html>
+@section('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const buttons = document.querySelectorAll('.hero-buttons .btn-pill');
+        const form = document.getElementById('hero-search-form');
+        const input = document.getElementById('hero-search-input');
+        
+        buttons.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all
+                buttons.forEach(b => b.classList.remove('active'));
+                
+                // Add active class to clicked
+                this.classList.add('active');
+                
+                // Update form based on type
+                const type = this.getAttribute('data-type');
+                
+                if (type === 'cek-pinjaman') {
+                    input.placeholder = 'Masukkan NIM...';
+                    input.name = 'nim';
+                    form.action = "{{ route('cek-pinjaman') }}";
+                } else {
+                    input.placeholder = 'Cari di Katalog Perpustakaan...';
+                    input.name = 'keyword';
+                    form.action = "#"; // Replace with route('katalog') when implemented
+                }
+                
+                input.focus();
+            });
+        });
+    });
+</script>
+@endsection
