@@ -135,6 +135,9 @@
                     } else if (currentType === 'sciencedirect') {
                         input.placeholder = 'Cari jurnal di ScienceDirect...';
                         input.name = 'qs';
+                    } else if (currentType === 'jurnal') {
+                        input.placeholder = 'Cari di Jurnal UNG...';
+                        input.name = 'simpleQuery';
                     } else if (currentType === 'katalog') {
                         input.placeholder = 'Cari di Katalog Perpustakaan...';
                         input.name = 'keyword';
@@ -181,6 +184,13 @@
                     if (query.trim() !== '') {
                         const sdUrl = `https://www.sciencedirect.com/search?qs=${encodeURIComponent(query)}`;
                         window.open(sdUrl, '_blank');
+                    }
+                } else if (currentType === 'jurnal') {
+                    e.preventDefault();
+                    const query = input.value;
+                    if (query.trim() !== '') {
+                        const jurnalUrl = `https://ejurnal.ung.ac.id/index.php/index/search/search?simpleQuery=${encodeURIComponent(query)}&searchField=query`;
+                        window.open(jurnalUrl, '_blank');
                     }
                 }
             });
