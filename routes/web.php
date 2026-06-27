@@ -19,6 +19,7 @@ use App\Http\Controllers\AdminCategoryController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/katalog', [CatalogController::class, 'index'])->name('katalog.search');
 Route::get('/katalog/{book}', [CatalogController::class, 'show'])->name('katalog.show');
+Route::post('/katalog/{book}/comments', [CatalogController::class, 'storeComment'])->name('katalog.comments.store');
 Route::get('/cek-pinjaman', [LoanController::class, 'index'])->name('cek-pinjaman');
 Route::get('/usulan-buku', [BookSuggestionController::class, 'index'])->name('usulan-buku.index');
 Route::post('/usulan-buku', [BookSuggestionController::class, 'store'])->name('usulan-buku.store');

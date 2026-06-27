@@ -38,6 +38,24 @@ class CatalogController extends Controller
 
     public function show(Book $book)
     {
+        $book->load(['comments' => function ($query) {
+            $query->orderBy('created_at', 'desc');
+        }]);
         return view('catalog.show', compact('book'));
+    }
+
+    public function storeComment(Request $request, Book $book)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'content' => 'required|string',
+        ]);
+
+        $book->comments()->create([
+            'name' => $request->name,
+            'content' => $request->content,
+        ]);
+
+        return redirect()->back()->with('success', 'Komentar berhasil ditambahkan!');
     }
 }

@@ -45,9 +45,7 @@
             <a href="{{ route('admin.feedbacks.index') }}" class="admin-nav-item {{ request()->routeIs('admin.feedbacks.*') ? 'active' : '' }}"><i class="fa-solid fa-comments"></i> Saran & Masukan</a>
             <a href="{{ route('admin.settings.index') }}" class="admin-nav-item {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}"><i class="fa-solid fa-gear"></i> Pengaturan Web</a>
             
-            <div style="padding: 1rem 2rem; color: #9ca3af; font-size: 0.8rem; font-weight: 600; margin-top: 1rem;">LAINNYA</div>
-            <a href="#" class="admin-nav-item"><i class="fa-solid fa-book"></i> Katalog Buku</a>
-            <a href="#" class="admin-nav-item"><i class="fa-solid fa-users"></i> Keanggotaan</a>
+
         </nav>
     </aside>
 

@@ -9,10 +9,18 @@ use Illuminate\Support\Facades\Storage;
 
 class AdminBookController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $books = Book::with('category')->get();
-        return view('admin.books.index', compact('books'));
+        $query = Book::with('category');
+        
+        if ($request->has('category_id') && $request->category_id != '') {
+            $query->where('category_id', $request->category_id);
+        }
+        
+        $books = $query->get();
+        $categories = Category::all();
+        
+        return view('admin.books.index', compact('books', 'categories'));
     }
 
     public function create()

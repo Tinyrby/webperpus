@@ -72,7 +72,7 @@
                                         <span style="font-size: 1.1rem; font-weight: 600; color: #fbbf24; margin: 1rem 0 1.5rem;">Dipinjam</span>
                                     @endif
                                     <a href="{{ route('katalog.show', $book->id) }}" style="display: block; width: 100%; text-align: center; border: 1px solid #3b82f6; color: #3b82f6; padding: 0.5rem; border-radius: 4px; text-decoration: none; font-size: 0.85rem; margin-bottom: 0.5rem; transition: background 0.2s;" onmouseover="this.style.background='#eff6ff'" onmouseout="this.style.background='transparent'">Tampilkan Detail</a>
-                                    <a href="#" style="display: block; width: 100%; text-align: center; border: 1px solid #cbd5e1; color: #64748b; padding: 0.5rem; border-radius: 4px; text-decoration: none; font-size: 0.85rem; transition: background 0.2s;" onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background='transparent'">Sitasi</a>
+                                    <a href="javascript:void(0)" onclick="showCitation('{{ addslashes($book->author) }}', '{{ addslashes($book->publisher) }}')" style="display: block; width: 100%; text-align: center; border: 1px solid #cbd5e1; color: #64748b; padding: 0.5rem; border-radius: 4px; text-decoration: none; font-size: 0.85rem; transition: background 0.2s;" onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background='transparent'">Sitasi</a>
                                 </div>
                             </div>
                             <!-- Expandable Details -->
@@ -203,6 +203,8 @@
             </div>
         </div>
 
+
+
         <!-- Populer -->
         <div style="margin-bottom: 4rem;">
             <h2 style="font-size: 1.5rem; color: #1e293b; font-weight: 600; margin-bottom: 0.5rem;">Yang populer di antara koleksi kami</h2>
@@ -266,6 +268,22 @@
     @endif
 </div>
 
+<!-- Citation Modal -->
+<div id="citationModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box;">
+    <div style="background: white; border-radius: 8px; width: 100%; max-width: 400px; position: relative; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);">
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 2rem; border-bottom: 1px solid #e2e8f0;">
+            <h3 style="margin: 0; font-size: 1.25rem; color: #334155; font-weight: 600;">Sitasi</h3>
+            <button onclick="document.getElementById('citationModal').style.display='none'" style="background: none; border: none; font-size: 1.5rem; color: #94a3b8; cursor: pointer;">&times;</button>
+        </div>
+        <div style="padding: 2.5rem 2rem; text-align: center;">
+            <p id="citationText" style="font-size: 1.5rem; color: #1e293b; font-weight: 500; font-family: monospace; background: #f8fafc; padding: 1rem; border-radius: 8px; border: 1px solid #e2e8f0;"></p>
+        </div>
+        <div style="padding: 1rem 2rem; border-top: 1px solid #e2e8f0; text-align: center;">
+            <button onclick="document.getElementById('citationModal').style.display='none'" style="background: #3b82f6; color: white; border: none; padding: 0.5rem 1.5rem; border-radius: 4px; cursor: pointer; font-weight: 600;">Tutup</button>
+        </div>
+    </div>
+</div>
+
 <style>
     .subject-card {
         display: flex;
@@ -315,12 +333,32 @@
 </style>
 
 <script>
-    // Close modal when clicking outside of it
+    // Close modals when clicking outside of it
     window.onclick = function(event) {
         var modal = document.getElementById('subjectModal');
+        var citModal = document.getElementById('citationModal');
         if (event.target == modal) {
             modal.style.display = "none";
         }
+        if (event.target == citModal) {
+            citModal.style.display = "none";
+        }
+    }
+
+    function showCitation(author, publisher) {
+        let name = '';
+        if (author && author.trim() !== '') {
+            let parts = author.trim().split(' ');
+            name = parts[parts.length - 1];
+        } else if (publisher && publisher.trim() !== '') {
+            let parts = publisher.trim().split(' ');
+            name = parts[parts.length - 1];
+        } else {
+            name = 'Tidak Diketahui';
+        }
+        
+        document.getElementById('citationText').innerText = '(' + name + ')';
+        document.getElementById('citationModal').style.display = 'flex';
     }
 
     function toggleDetail(bookId, element) {

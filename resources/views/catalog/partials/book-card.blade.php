@@ -1,4 +1,4 @@
-<div style="border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; background: white; transition: transform 0.2s, box-shadow 0.2s; height: 100%; display: flex; flex-direction: column; cursor: pointer;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 10px 15px -3px rgba(0,0,0,0.1)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+<div onclick="window.location.href='{{ route('katalog.show', $book->id) }}'" style="border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; background: white; transition: transform 0.2s, box-shadow 0.2s; height: 100%; display: flex; flex-direction: column; cursor: pointer;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 10px 15px -3px rgba(0,0,0,0.1)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
     <div style="position: relative; padding-top: 140%; background: #f8fafc;">
         @if($book->cover_image)
             <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">

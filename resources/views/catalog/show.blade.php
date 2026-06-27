@@ -138,8 +138,44 @@
             </div>
 
             <!-- Komentar -->
-            <div>
-                <h3 style="font-size: 1.1rem; color: #1e293b; margin-bottom: 0.5rem; font-weight: 600;">Komentar</h3>
+            <div style="margin-top: 3rem; border-top: 1px solid #e2e8f0; padding-top: 2rem;">
+                <h3 style="font-size: 1.25rem; color: #1e293b; margin-bottom: 1.5rem; font-weight: 600;">Komentar ({{ $book->comments->count() }})</h3>
+                
+                @if(session('success'))
+                    <div style="background-color: #dcfce7; color: #166534; padding: 1rem; border-radius: 6px; margin-bottom: 1.5rem; border: 1px solid #bbf7d0;">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                <div style="margin-bottom: 2.5rem; display: flex; flex-direction: column; gap: 1rem;">
+                    @forelse($book->comments as $comment)
+                        <div style="background: #f8fafc; padding: 1.25rem; border-radius: 8px; border: 1px solid #e2e8f0;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; align-items: baseline;">
+                                <strong style="color: #334155; font-size: 1rem;">{{ $comment->name }}</strong>
+                                <span style="color: #94a3b8; font-size: 0.8rem;">{{ $comment->created_at->diffForHumans() }}</span>
+                            </div>
+                            <p style="color: #475569; font-size: 0.95rem; line-height: 1.5; margin: 0; white-space: pre-wrap;">{{ $comment->content }}</p>
+                        </div>
+                    @empty
+                        <p style="color: #94a3b8; font-size: 0.95rem; font-style: italic; margin: 0;">Belum ada komentar untuk buku ini. Jadilah yang pertama memberikan ulasan!</p>
+                    @endforelse
+                </div>
+
+                <div style="background: #ffffff; padding: 1.5rem; border-radius: 8px; border: 1px solid #e2e8f0;">
+                    <h4 style="font-size: 1.1rem; color: #1e293b; margin-bottom: 1rem; margin-top: 0;">Tinggalkan Komentar</h4>
+                    <form action="{{ route('katalog.comments.store', $book->id) }}" method="POST">
+                        @csrf
+                        <div style="margin-bottom: 1rem;">
+                            <label for="name" style="display: block; font-size: 0.9rem; color: #475569; margin-bottom: 0.5rem; font-weight: 500;">Nama Anda</label>
+                            <input type="text" name="name" id="name" required style="width: 100%; padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.95rem; outline: none; box-sizing: border-box;" placeholder="Masukkan nama Anda">
+                        </div>
+                        <div style="margin-bottom: 1.5rem;">
+                            <label for="content" style="display: block; font-size: 0.9rem; color: #475569; margin-bottom: 0.5rem; font-weight: 500;">Komentar / Ulasan</label>
+                            <textarea name="content" id="content" rows="4" required style="width: 100%; padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.95rem; outline: none; box-sizing: border-box; resize: vertical;" placeholder="Tuliskan komentar Anda tentang buku ini..."></textarea>
+                        </div>
+                        <button type="submit" style="background-color: #3b82f6; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 6px; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: background-color 0.2s;" onmouseover="this.style.backgroundColor='#2563eb'" onmouseout="this.style.backgroundColor='#3b82f6'">Kirim Komentar</button>
+                    </form>
+                </div>
             </div>
             
         </div>

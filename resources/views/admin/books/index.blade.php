@@ -14,6 +14,21 @@
     </div>
 @endif
 
+<div class="card" style="margin-bottom: 1.5rem; padding: 1rem; display: flex; justify-content: flex-start; align-items: center;">
+    <form action="{{ route('admin.books.index') }}" method="GET" style="display: flex; gap: 10px; align-items: center; width: 100%;">
+        <label for="category_id" style="font-weight: 500; color: #475569; font-size: 0.9rem;">Filter Subjek:</label>
+        <select name="category_id" id="category_id" onchange="this.form.submit()" style="padding: 0.5rem 1rem; border: 1px solid #cbd5e1; border-radius: 4px; outline: none; min-width: 250px; font-size: 0.9rem; color: #334155;">
+            <option value="">-- Semua Subjek --</option>
+            @foreach($categories as $cat)
+                <option value="{{ $cat->id }}" {{ request('category_id') == $cat->id ? 'selected' : '' }}>{{ $cat->name }}</option>
+            @endforeach
+        </select>
+        @if(request('category_id'))
+            <a href="{{ route('admin.books.index') }}" style="color: #ef4444; text-decoration: none; font-size: 0.85rem; margin-left: 10px;"><i class="fa-solid fa-xmark"></i> Hapus Filter</a>
+        @endif
+    </form>
+</div>
+
 <div class="card">
     <div style="overflow-x: auto;">
         <table class="table" style="width: 100%; border-collapse: collapse;">
