@@ -57,10 +57,7 @@
                 <div class="service-icon"><i class="fa-solid fa-server"></i></div>
                 <span>Digital Repository</span>
             </a>
-            <div class="service-item">
-                <div class="service-icon"><i class="fa-solid fa-file-pdf"></i></div>
-                <span>e-Skripsi</span>
-            </div>
+
             <div class="service-item">
                 <div class="service-icon"><i class="fa-solid fa-headset"></i></div>
                 <span>Layanan Daring</span>
