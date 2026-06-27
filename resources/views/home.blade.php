@@ -58,10 +58,7 @@
                 <span>Digital Repository</span>
             </a>
 
-            <div class="service-item">
-                <div class="service-icon"><i class="fa-solid fa-headset"></i></div>
-                <span>Layanan Daring</span>
-            </div>
+
             <div class="service-item">
                 <div class="service-icon"><i class="fa-solid fa-images"></i></div>
                 <span>Galeri</span>
