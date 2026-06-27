@@ -22,7 +22,7 @@ class CatalogController extends Controller
                   });
         }
 
-        $searchResults = $keyword ? $query->paginate(12) : null;
+        $searchResults = $keyword ? $query->paginate(12)->withQueryString() : null;
 
         if (!$keyword) {
             $popularBooks = Book::with('category')->withCount('loans')->orderBy('loans_count', 'desc')->take(6)->get();
@@ -52,6 +52,30 @@ class CatalogController extends Controller
     public function help()
     {
         return view('catalog.help');
+    }
+
+    public function guidelines($slug = null)
+    {
+        $guidelinesList = \App\Models\Guideline::where('is_active', true)
+                                               ->orderBy('order', 'asc')
+                                               ->get();
+
+        if ($guidelinesList->isEmpty()) {
+            abort(404, 'Panduan tidak ditemukan.');
+        }
+
+        if (!$slug) {
+            $currentGuide = $guidelinesList->first();
+            return redirect()->route('katalog.guidelines', $currentGuide->slug);
+        }
+
+        $currentGuide = $guidelinesList->where('slug', $slug)->first();
+
+        if (!$currentGuide) {
+            abort(404, 'Panduan tidak ditemukan.');
+        }
+
+        return view('catalog.guidelines', compact('slug', 'guidelinesList', 'currentGuide'));
     }
 
     public function storeComment(Request $request, Book $book)

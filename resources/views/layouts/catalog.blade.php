@@ -65,8 +65,49 @@
             text-shadow: 0 1px 3px rgba(0,0,0,0.3);
             transition: color 0.2s;
         }
+        .catalog-menu > li {
+            padding: 1rem 0;
+        }
         .catalog-menu a:hover {
             color: #cbd5e1;
+        }
+
+        /* Dropdown styles */
+        .catalog-menu .dropdown {
+            position: relative;
+        }
+        .catalog-menu .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: -1rem;
+            background: white;
+            min-width: 350px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+            padding: 0.5rem 0;
+            list-style: none;
+            z-index: 9999;
+            margin: 0;
+        }
+        .catalog-menu .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+        .catalog-menu .dropdown-menu li {
+            width: 100%;
+        }
+        .catalog-menu .dropdown-menu a {
+            color: #334155;
+            text-shadow: none;
+            padding: 0.75rem 1.5rem;
+            display: block;
+            font-size: 0.95rem;
+            font-weight: 400;
+            white-space: normal;
+        }
+        .catalog-menu .dropdown-menu a:hover {
+            background-color: #f8fafc;
+            color: #0f172a;
         }
         
         .catalog-lang {
@@ -90,6 +131,42 @@
         /* Main content */
         .catalog-main {
             min-height: 100vh;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            gap: 0.25rem;
+        }
+        .pagination li {
+            display: inline-block;
+        }
+        .pagination li a, .pagination li span {
+            display: inline-block;
+            padding: 0.5rem 0.75rem;
+            color: #3b82f6;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            text-decoration: none;
+        }
+        .pagination li a:hover {
+            background: #f8fafc;
+        }
+        .pagination li.active span {
+            background: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+            font-weight: 600;
+        }
+        .pagination li.disabled span {
+            color: #94a3b8;
+            background: #f1f5f9;
+            border-color: #e2e8f0;
         }
 
         /* Footer */
@@ -200,6 +277,16 @@
         </a>
         <ul class="catalog-menu">
             <li><a href="{{ route('katalog.search') }}">{{ __('nav.home') }}</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle">{{ __('nav.guidelines') }} <i class="fa-solid fa-chevron-down" style="font-size: 0.8rem; margin-left: 3px;"></i></a>
+                <ul class="dropdown-menu">
+                    @if(isset($globalGuidelines) && $globalGuidelines->count() > 0)
+                        @foreach($globalGuidelines as $guide)
+                            <li><a href="{{ route('katalog.guidelines', $guide->slug) }}">{{ app()->getLocale() == 'en' && $guide->title_en ? $guide->title_en : $guide->title_id }}</a></li>
+                        @endforeach
+                    @endif
+                </ul>
+            </li>
             <li><a href="{{ route('katalog.information') }}">{{ __('nav.information') }}</a></li>
             <li><a href="{{ route('katalog.help') }}">{{ __('nav.help') }}</a></li>
         </ul>

@@ -20,6 +20,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/katalog', [CatalogController::class, 'index'])->name('katalog.search');
 Route::get('/katalog/informasi', [CatalogController::class, 'information'])->name('katalog.information');
 Route::get('/katalog/bantuan', [CatalogController::class, 'help'])->name('katalog.help');
+Route::get('/katalog/panduan/{slug?}', [CatalogController::class, 'guidelines'])->name('katalog.guidelines');
 Route::get('/katalog/{book}', [CatalogController::class, 'show'])->name('katalog.show');
 Route::post('/katalog/{book}/comments', [CatalogController::class, 'storeComment'])->name('katalog.comments.store');
 Route::get('/lang/{locale}', [App\Http\Controllers\LanguageController::class, 'switch'])->name('lang');
@@ -39,6 +40,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('loans', AdminLoanController::class)->except(['show']);
     Route::resource('book-suggestions', AdminBookSuggestionController::class)->only(['index', 'destroy']);
     Route::resource('feedbacks', AdminFeedbackController::class)->only(['index', 'destroy']);
+    Route::resource('guidelines', App\Http\Controllers\AdminGuidelineController::class)->except(['show']);
     
     Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
     Route::put('settings', [SettingController::class, 'update'])->name('settings.update');

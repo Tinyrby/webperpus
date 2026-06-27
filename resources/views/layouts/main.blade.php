@@ -58,7 +58,18 @@
                         </div>
                     </div>
                 </li>
-                <li><a href="#">Panduan <i class="fa-solid fa-chevron-down" style="font-size:0.7em;"></i></a></li>
+                <li class="nav-dropdown">
+                    <a href="#">Panduan <i class="fa-solid fa-chevron-down" style="font-size:0.7em;"></i></a>
+                    <div class="mega-menu" style="min-width: 320px;">
+                        <ul class="mega-list">
+                            @if(isset($globalGuidelines) && $globalGuidelines->count() > 0)
+                                @foreach($globalGuidelines as $guide)
+                                    <li><a href="{{ route('katalog.guidelines', $guide->slug) }}">{{ app()->getLocale() == 'en' && $guide->title_en ? $guide->title_en : $guide->title_id }}</a></li>
+                                @endforeach
+                            @endif
+                        </ul>
+                    </div>
+                </li>
                 <li class="nav-dropdown">
                     <a href="#">E-Resources <i class="fa-solid fa-chevron-down" style="font-size:0.7em;"></i></a>
                     <div class="mega-menu" style="min-width: 200px;">

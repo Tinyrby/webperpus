@@ -44,7 +44,7 @@
             <a href="{{ route('admin.book-suggestions.index') }}" class="admin-nav-item {{ request()->routeIs('admin.book-suggestions.*') ? 'active' : '' }}"><i class="fa-solid fa-envelope-open-text"></i> Usulan Buku</a>
             <a href="{{ route('admin.feedbacks.index') }}" class="admin-nav-item {{ request()->routeIs('admin.feedbacks.*') ? 'active' : '' }}"><i class="fa-solid fa-comments"></i> Saran & Masukan</a>
             <a href="{{ route('admin.settings.index') }}" class="admin-nav-item {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}"><i class="fa-solid fa-gear"></i> Pengaturan Web</a>
-            
+            <a href="{{ route('admin.guidelines.index') }}" class="admin-nav-item {{ request()->routeIs('admin.guidelines.*') ? 'active' : '' }}"><i class="fa-solid fa-book-open"></i> Kelola Panduan</a>
 
         </nav>
     </aside>
