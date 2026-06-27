@@ -37,26 +37,26 @@
         <p class="section-subtitle">Layanan digital dan sumber daya informasi pilihan</p>
 
         <div class="services-grid">
-            <div class="service-item">
+            <a href="https://e-resources.perpusnas.go.id/" target="_blank" class="service-item" style="text-decoration: none; color: inherit;">
                 <div class="service-icon"><i class="fa-solid fa-book-bookmark"></i></div>
                 <span>e-Resources</span>
-            </div>
-            <div class="service-item">
+            </a>
+            <a href="https://www.sciencedirect.com/" target="_blank" class="service-item" style="text-decoration: none; color: inherit;">
                 <div class="service-icon"><i class="fa-solid fa-atom"></i></div>
                 <span>ScienceDirect</span>
-            </div>
-            <div class="service-item">
+            </a>
+            <a href="{{ route('katalog.search') }}" class="service-item" style="text-decoration: none; color: inherit;">
                 <div class="service-icon"><i class="fa-solid fa-laptop-code"></i></div>
                 <span>Katalog Online</span>
-            </div>
-            <div class="service-item">
+            </a>
+            <a href="https://ejurnal.ung.ac.id/index.php" target="_blank" class="service-item" style="text-decoration: none; color: inherit;">
                 <div class="service-icon"><i class="fa-solid fa-newspaper"></i></div>
                 <span>e-Journal</span>
-            </div>
-            <div class="service-item">
+            </a>
+            <a href="https://repository.ung.ac.id/" target="_blank" class="service-item" style="text-decoration: none; color: inherit;">
                 <div class="service-icon"><i class="fa-solid fa-server"></i></div>
                 <span>Digital Repository</span>
-            </div>
+            </a>
             <div class="service-item">
                 <div class="service-icon"><i class="fa-solid fa-file-pdf"></i></div>
                 <span>e-Skripsi</span>
@@ -141,6 +141,9 @@
                     } else if (currentType === 'repo') {
                         input.placeholder = 'Cari di Repository UNG...';
                         input.name = 'keyword';
+                    } else if (currentType === 'onesearch') {
+                        input.placeholder = 'Cari di One Search...';
+                        input.name = 'search';
                     } else if (currentType === 'katalog') {
                         input.placeholder = 'Cari di Katalog Perpustakaan...';
                         input.name = 'keyword';
@@ -201,6 +204,13 @@
                     if (query.trim() !== '') {
                         const repoUrl = `https://repository.ung.ac.id/data/cari/${encodeURIComponent(query)}`;
                         window.open(repoUrl, '_blank');
+                    }
+                } else if (currentType === 'onesearch') {
+                    e.preventDefault();
+                    const query = input.value;
+                    if (query.trim() !== '') {
+                        const onesearchUrl = `https://onesearch.id/Repositories/Library?search=${encodeURIComponent(query)}&btn=Search`;
+                        window.open(onesearchUrl, '_blank');
                     }
                 }
             });
