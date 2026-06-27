@@ -84,15 +84,12 @@
                     <a href="#">Tentang Kami <i class="fa-solid fa-chevron-down" style="font-size:0.7em;"></i></a>
                     <div class="mega-menu" style="min-width: 220px;">
                         <ul class="mega-list">
-                            <li><a href="{{ route('tentang-kami', 'profile-perpustakaan') }}">Profile Perpustakaan</a></li>
-                            <li><a href="{{ route('tentang-kami', 'visi-misi') }}">Visi & Misi</a></li>
-                            <li><a href="{{ route('tentang-kami', 'struktur-organisasi') }}">Struktur Organisasi</a></li>
-                            <li><a href="{{ route('tentang-kami', 'staff-perpustakaan') }}">Staff Perpustakaan</a></li>
-                            <li><a href="{{ route('tentang-kami', 'tata-tertib') }}">Tata Tertib</a></li>
-                            <li><a href="{{ route('tentang-kami', 'jam-buka') }}">Jam Buka</a></li>
-                            <li><a href="{{ route('tentang-kami', 'kontak') }}">Kontak</a></li>
-                            <li><a href="{{ route('tentang-kami', 'berita') }}">Berita</a></li>
-                            <li><a href="{{ route('tentang-kami', 'galeri') }}">Galeri</a></li>
+                            @php
+                                $aboutMenus = \App\Models\AboutPage::where('is_active', true)->orderBy('order', 'asc')->get();
+                            @endphp
+                            @foreach($aboutMenus as $menu)
+                                <li><a href="{{ route('tentang-kami', $menu->slug) }}">{{ app()->getLocale() == 'en' && $menu->title_en ? $menu->title_en : $menu->title_id }}</a></li>
+                            @endforeach
                         </ul>
                     </div>
                 </li>

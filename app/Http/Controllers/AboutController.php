@@ -4,30 +4,39 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\AboutPage;
+
 class AboutController extends Controller
 {
-    public function index($section = 'profile-perpustakaan')
+    public function index($slug = null)
     {
-        $validSections = [
-            'profile-perpustakaan' => 'Profile Perpustakaan',
-            'visi-misi' => 'Visi & Misi',
-            'struktur-organisasi' => 'Struktur Organisasi',
-            'staff-perpustakaan' => 'Staff Perpustakaan',
-            'tata-tertib' => 'Tata Tertib',
-            'jam-buka' => 'Jam Buka',
-            'kontak' => 'Kontak',
-            'berita' => 'Berita',
-            'galeri' => 'Galeri',
-        ];
+        $aboutPages = AboutPage::where('is_active', true)->orderBy('order', 'asc')->get();
 
-        if (!array_key_exists($section, $validSections)) {
-            abort(404);
+        if ($aboutPages->isEmpty()) {
+            abort(404, 'Halaman Tentang Kami belum tersedia.');
+        }
+
+        if (!$slug) {
+            $currentSection = $aboutPages->first();
+            return redirect()->route('tentang-kami', $currentSection->slug);
+        }
+
+        $currentSection = $aboutPages->where('slug', $slug)->first();
+
+        if (!$currentSection) {
+            abort(404, 'Halaman Tentang Kami tidak ditemukan.');
+        }
+
+        $staffs = [];
+        if (in_array($slug, ['struktur-organisasi', 'staff-perpustakaan'])) {
+            $category = $slug == 'struktur-organisasi' ? 'struktur_organisasi' : 'staff_perpustakaan';
+            $staffs = \App\Models\Staff::where('category', $category)->orderBy('order', 'asc')->get();
         }
 
         return view('about.index', [
-            'currentSection' => $section,
-            'title' => $validSections[$section],
-            'sections' => $validSections
+            'currentSection' => $currentSection,
+            'aboutPages' => $aboutPages,
+            'staffs' => $staffs
         ]);
     }
 }

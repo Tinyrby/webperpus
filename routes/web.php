@@ -43,6 +43,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('book-suggestions', AdminBookSuggestionController::class)->only(['index', 'destroy']);
     Route::resource('feedbacks', AdminFeedbackController::class)->only(['index', 'destroy']);
     Route::resource('guidelines', App\Http\Controllers\AdminGuidelineController::class)->except(['show']);
+    Route::resource('about', App\Http\Controllers\AdminAboutController::class)->except(['show']);
+    Route::get('about/edit-slug/{slug}', [App\Http\Controllers\AdminAboutController::class, 'editSlug'])->name('about.edit_slug');
+    Route::resource('staff', App\Http\Controllers\AdminStaffController::class)->except(['show']);
     
     Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
     Route::put('settings', [SettingController::class, 'update'])->name('settings.update');

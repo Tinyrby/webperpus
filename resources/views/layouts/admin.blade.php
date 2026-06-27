@@ -45,6 +45,21 @@
             <a href="{{ route('admin.feedbacks.index') }}" class="admin-nav-item {{ request()->routeIs('admin.feedbacks.*') ? 'active' : '' }}"><i class="fa-solid fa-comments"></i> Saran & Masukan</a>
             <a href="{{ route('admin.settings.index') }}" class="admin-nav-item {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}"><i class="fa-solid fa-gear"></i> Pengaturan Web</a>
             <a href="{{ route('admin.guidelines.index') }}" class="admin-nav-item {{ request()->routeIs('admin.guidelines.*') ? 'active' : '' }}"><i class="fa-solid fa-book-open"></i> Kelola Panduan</a>
+            <div class="admin-nav-item has-dropdown {{ request()->routeIs('admin.about.*') || request()->routeIs('admin.staff.*') ? 'active' : '' }}" style="display: flex; flex-direction: column; align-items: flex-start; padding: 0;">
+                <div style="width: 100%; padding: 0.75rem 1rem; display: flex; align-items: center; justify-content: space-between; cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">
+                    <div><i class="fa-solid fa-circle-info" style="width: 20px; text-align: center; margin-right: 10px;"></i> Kelola Tentang Kami</div>
+                    <i class="fa-solid fa-chevron-down" style="font-size: 0.8em;"></i>
+                </div>
+                <div style="width: 100%; display: {{ request()->routeIs('admin.about.*') || request()->routeIs('admin.staff.*') ? 'block' : 'none' }}; background: #0f172a;">
+                    <a href="{{ route('admin.about.edit_slug', 'profile-perpustakaan') }}" style="display: block; padding: 0.75rem 1rem 0.75rem 3rem; color: {{ request()->is('admin/about/edit-slug/profile-perpustakaan') ? 'var(--primary-light)' : '#cbd5e1' }}; text-decoration: none; font-size: 0.9em;">Profile Perpustakaan</a>
+                    <a href="{{ route('admin.about.edit_slug', 'visi-misi') }}" style="display: block; padding: 0.75rem 1rem 0.75rem 3rem; color: {{ request()->is('admin/about/edit-slug/visi-misi') ? 'var(--primary-light)' : '#cbd5e1' }}; text-decoration: none; font-size: 0.9em;">Visi & Misi</a>
+                    <a href="{{ route('admin.staff.index', ['category' => 'struktur_organisasi']) }}" style="display: block; padding: 0.75rem 1rem 0.75rem 3rem; color: {{ request()->fullUrlIs('*category=struktur_organisasi*') ? 'var(--primary-light)' : '#cbd5e1' }}; text-decoration: none; font-size: 0.9em;">Struktur Organisasi</a>
+                    <a href="{{ route('admin.staff.index', ['category' => 'staff_perpustakaan']) }}" style="display: block; padding: 0.75rem 1rem 0.75rem 3rem; color: {{ request()->fullUrlIs('*category=staff_perpustakaan*') ? 'var(--primary-light)' : '#cbd5e1' }}; text-decoration: none; font-size: 0.9em;">Staff Perpustakaan</a>
+                    <a href="{{ route('admin.about.edit_slug', 'tata-tertib') }}" style="display: block; padding: 0.75rem 1rem 0.75rem 3rem; color: {{ request()->is('admin/about/edit-slug/tata-tertib') ? 'var(--primary-light)' : '#cbd5e1' }}; text-decoration: none; font-size: 0.9em;">Tata Tertib</a>
+                    <a href="{{ route('admin.about.edit_slug', 'jam-buka') }}" style="display: block; padding: 0.75rem 1rem 0.75rem 3rem; color: {{ request()->is('admin/about/edit-slug/jam-buka') ? 'var(--primary-light)' : '#cbd5e1' }}; text-decoration: none; font-size: 0.9em;">Jam Buka</a>
+                    <a href="{{ route('admin.about.edit_slug', 'kontak') }}" style="display: block; padding: 0.75rem 1rem 0.75rem 3rem; color: {{ request()->is('admin/about/edit-slug/kontak') ? 'var(--primary-light)' : '#cbd5e1' }}; text-decoration: none; font-size: 0.9em;">Kontak</a>
+                </div>
+            </div>
 
         </nav>
     </aside>
