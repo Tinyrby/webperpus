@@ -5,29 +5,32 @@
 @section('main-class', 'no-hero')
 
 @section('content')
-<div style="max-width: 1200px; margin: 2rem auto; padding: 0 5%; display: grid; grid-template-columns: 300px 1fr; gap: 2rem; min-height: 70vh;">
-    
-    <!-- Sidebar -->
-    <div style="background: white; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); padding: 1rem 0; height: fit-content;">
-        <a href="{{ route('home') }}" style="display: block; padding: 0.75rem 1.5rem; color: #3b82f6; text-decoration: none; font-weight: 500; font-size: 0.95rem; border-bottom: 1px solid #e2e8f0; margin-bottom: 0.5rem;">
-            <i class="fa-solid fa-arrow-left" style="margin-right: 5px;"></i> {{ app()->getLocale() == 'id' ? 'Kembali ke Beranda' : 'Back to Home' }}
-        </a>
+<div style="max-width: 1200px; margin: 0 auto; padding: 40px 20px 80px;">
+    <div style="display: flex; gap: 40px; flex-wrap: wrap;">
         
-        <ul style="list-style: none; padding: 0; margin: 0;">
-            @foreach($guidelinesList as $guide)
-                <li style="margin-bottom: 0.5rem;">
+        <!-- Sidebar -->
+        <aside style="width: 100%; max-width: 280px; flex-shrink: 0;">
+            <div style="margin-bottom: 20px;">
+                <a href="{{ route('home') }}" style="color: var(--primary-color); text-decoration: none; font-weight: 500; font-size: 0.95em; display: inline-flex; align-items: center; gap: 8px;">
+                    <i class="fa-solid fa-arrow-left"></i> {{ app()->getLocale() == 'id' ? 'Kembali ke Beranda' : 'Back to Home' }}
+                </a>
+            </div>
+            
+            <ul style="list-style: none; padding: 0; margin: 0; border: 1px solid #eaeaea; border-radius: 8px; overflow: hidden; background: #fff;">
+                @foreach($guidelinesList as $guide)
+                <li style="border-bottom: 1px solid #eaeaea;">
                     <a href="{{ route('katalog.guidelines', $guide->slug) }}" 
-                       style="display: block; padding: 0.75rem 1rem; border-radius: 6px; text-decoration: none; color: {{ $slug == $guide->slug ? '#fff' : '#475569' }}; background: {{ $slug == $guide->slug ? '#0369a1' : 'transparent' }}; font-weight: {{ $slug == $guide->slug ? '600' : '400' }}; transition: all 0.2s;">
-                        {{ app()->getLocale() == 'en' && $guide->title_en ? $guide->title_en : $guide->title_id }}
+                       style="display: flex; justify-content: space-between; align-items: center; padding: 14px 20px; text-decoration: none; color: {{ $slug == $guide->slug ? 'var(--primary-color)' : '#4a5568' }}; font-weight: {{ $slug == $guide->slug ? '600' : '400' }}; background: {{ $slug == $guide->slug ? '#f8fafc' : 'transparent' }}; transition: all 0.2s;">
+                        <span>{{ app()->getLocale() == 'en' && $guide->title_en ? $guide->title_en : $guide->title_id }}</span>
                     </a>
                 </li>
-            @endforeach
-        </ul>
-    </div>
+                @endforeach
+            </ul>
+        </aside>
 
-    <!-- Document Viewer -->
-    <div class="document-viewer" style="background: white; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); padding: 1.5rem; display: flex; flex-direction: column;">
-        <!-- Title removed as requested -->
+        <!-- Document Viewer -->
+        <main class="document-viewer" style="flex: 1; min-width: 0; background: #fff; padding: 0; display: flex; flex-direction: column;">
+            <!-- Title removed as requested -->
         <div style="flex: 1; background: #f8fafc; border-radius: 6px; border: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: center; overflow: hidden; min-height: 500px;">
             @if($currentGuide->type == 'video')
                 @if($currentGuide->file_path)
@@ -79,7 +82,8 @@
             @endif
         </div>
 
-    </div>
+        </main>
 
+    </div>
 </div>
 @endsection

@@ -15,6 +15,7 @@ use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\AdminFeedbackController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\AdminCategoryController;
+use App\Http\Controllers\AboutController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/katalog', [CatalogController::class, 'index'])->name('katalog.search');
@@ -29,6 +30,7 @@ Route::get('/usulan-buku', [BookSuggestionController::class, 'index'])->name('us
 Route::post('/usulan-buku', [BookSuggestionController::class, 'store'])->name('usulan-buku.store');
 Route::get('/saran-masukan', [FeedbackController::class, 'index'])->name('saran-masukan.index');
 Route::post('/saran-masukan', [FeedbackController::class, 'store'])->name('saran-masukan.store');
+Route::get('/tentang-kami/{section?}', [AboutController::class, 'index'])->name('tentang-kami');
 
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('dashboard');
