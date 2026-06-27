@@ -18,8 +18,8 @@
             {{ $book->title }}
         </h4>
         <p style="margin: 0; font-size: 0.85rem; color: #64748b; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
-            {{ $book->author ?? 'Pengarang Tidak Diketahui' }}<br>
-            {{ $book->publisher ?? 'Penerbit Tidak Diketahui' }}
+            {{ $book->author ?? __('catalog.unknown_author') }}<br>
+            {{ $book->publisher ?? __('catalog.unknown_publisher') }}
         </p>
     </div>
 </div>

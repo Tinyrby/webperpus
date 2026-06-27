@@ -199,16 +199,13 @@
             Perpustakaan UNG
         </a>
         <ul class="catalog-menu">
-            <li><a href="{{ route('katalog.search') }}">Beranda</a></li>
-            <li><a href="#">Informasi</a></li>
-            <li><a href="#">Berita</a></li>
-            <li><a href="#">Bantuan</a></li>
-            <li><a href="#">Pustakawan</a></li>
-            <li><a href="#">Area Anggota</a></li>
+            <li><a href="{{ route('katalog.search') }}">{{ __('nav.home') }}</a></li>
+            <li><a href="{{ route('katalog.information') }}">{{ __('nav.information') }}</a></li>
+            <li><a href="{{ route('katalog.help') }}">{{ __('nav.help') }}</a></li>
         </ul>
         <div class="catalog-lang">
-            <img src="https://flagcdn.com/w40/gb.png" alt="English" title="English">
-            <img src="https://flagcdn.com/w40/id.png" alt="Bahasa Indonesia" title="Bahasa Indonesia">
+            <a href="{{ route('lang', 'en') }}"><img src="https://flagcdn.com/w40/gb.png" alt="English" title="English"></a>
+            <a href="{{ route('lang', 'id') }}"><img src="https://flagcdn.com/w40/id.png" alt="Bahasa Indonesia" title="Bahasa Indonesia"></a>
         </div>
     </nav>
 
@@ -219,8 +216,8 @@
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-col">
-                <h3 class="footer-brand">Perpustakaan UNG</h3>
-                <p class="footer-desc">Perpustakaan yang inovatif dan unggul dalam informasi dan edukasi</p>
+                <h3 class="footer-brand">{{ __('catalog.footer_brand') }}</h3>
+                <p class="footer-desc">{{ __('catalog.footer_desc') }}</p>
                 <div class="footer-socials">
                     <a href="#"><i class="fa-brands fa-instagram"></i></a>
                     <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
@@ -229,28 +226,28 @@
                 </div>
             </div>
             <div class="footer-col">
-                <h4 class="footer-title">E-RESOURCES</h4>
+                <h4 class="footer-title">{{ __('catalog.e_resources') }}</h4>
                 <ul class="footer-links">
-                    <li><a href="{{ route('katalog.search') }}">Katalog Online</a></li>
-                    <li><a href="#">e-Journal</a></li>
-                    <li><a href="#">Digital Repository</a></li>
+                    <li><a href="{{ route('katalog.search') }}">{{ __('catalog.online_catalog') }}</a></li>
+                    <li><a href="#">{{ __('catalog.e_journal') }}</a></li>
+                    <li><a href="#">{{ __('catalog.digital_repo') }}</a></li>
                 </ul>
             </div>
             <div class="footer-col">
-                <h4 class="footer-title">LAYANAN DARING</h4>
+                <h4 class="footer-title">{{ __('catalog.online_services') }}</h4>
                 <ul class="footer-links">
-                    <li><a href="{{ route('cek-pinjaman') }}">Cek Pinjaman</a></li>
-                    <li><a href="{{ route('usulan-buku.index') }}">Usulan Buku Baru</a></li>
-                    <li><a href="{{ route('saran-masukan.index') }}">Saran dan Masukan</a></li>
+                    <li><a href="{{ route('cek-pinjaman') }}">{{ __('catalog.check_loan') }}</a></li>
+                    <li><a href="{{ route('usulan-buku.index') }}">{{ __('catalog.propose_book') }}</a></li>
+                    <li><a href="{{ route('saran-masukan.index') }}">{{ __('catalog.feedback') }}</a></li>
                 </ul>
             </div>
             <div class="footer-col">
-                <h4 class="footer-title">TENTANG KAMI</h4>
+                <h4 class="footer-title">{{ __('catalog.about_us') }}</h4>
                 <ul class="footer-links">
-                    <li><a href="#">Profile Perpustakaan</a></li>
-                    <li><a href="#">Visi & Misi</a></li>
-                    <li><a href="#">Struktur Organisasi</a></li>
-                    <li><a href="#">Jam Buka</a></li>
+                    <li><a href="#">{{ __('catalog.library_profile') }}</a></li>
+                    <li><a href="#">{{ __('catalog.vision_mission') }}</a></li>
+                    <li><a href="#">{{ __('catalog.org_structure') }}</a></li>
+                    <li><a href="#">{{ __('catalog.opening_hours') }}</a></li>
                 </ul>
             </div>
         </div>

@@ -73,8 +73,8 @@
                 <li><a href="#">Bantuan <i class="fa-solid fa-chevron-down" style="font-size:0.7em;"></i></a></li>
             </ul>
             <div class="lang-flags">
-                <img src="https://flagcdn.com/w40/id.png" alt="Indonesian">
-                <img src="https://flagcdn.com/w40/gb.png" alt="English">
+                <a href="{{ route('lang', 'id') }}"><img src="https://flagcdn.com/w40/id.png" alt="Indonesian"></a>
+                <a href="{{ route('lang', 'en') }}"><img src="https://flagcdn.com/w40/gb.png" alt="English"></a>
             </div>
         </div>
         

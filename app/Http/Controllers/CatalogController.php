@@ -44,6 +44,16 @@ class CatalogController extends Controller
         return view('catalog.show', compact('book'));
     }
 
+    public function information()
+    {
+        return view('catalog.information');
+    }
+
+    public function help()
+    {
+        return view('catalog.help');
+    }
+
     public function storeComment(Request $request, Book $book)
     {
         $request->validate([

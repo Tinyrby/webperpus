@@ -18,7 +18,10 @@ class SettingController extends Controller
     {
         $request->validate([
             'hero_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
+            'catalog_bg_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
         ]);
+
+        $updated = false;
 
         if ($request->hasFile('hero_image')) {
             $setting = Setting::firstOrCreate(['key' => 'hero_image']);
@@ -29,8 +32,23 @@ class SettingController extends Controller
             
             $path = $request->file('hero_image')->store('settings', 'public');
             $setting->update(['value' => $path]);
+            $updated = true;
+        }
+
+        if ($request->hasFile('catalog_bg_image')) {
+            $setting = Setting::firstOrCreate(['key' => 'catalog_bg_image']);
             
-            return back()->with('success', 'Gambar latar hero berhasil diperbarui.');
+            if ($setting->value) {
+                Storage::disk('public')->delete($setting->value);
+            }
+            
+            $path = $request->file('catalog_bg_image')->store('settings', 'public');
+            $setting->update(['value' => $path]);
+            $updated = true;
+        }
+
+        if ($updated) {
+            return back()->with('success', 'Pengaturan gambar berhasil diperbarui.');
         }
 
         return back()->with('success', 'Tidak ada perubahan yang dilakukan.');

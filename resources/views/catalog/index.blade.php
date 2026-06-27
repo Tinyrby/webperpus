@@ -4,13 +4,17 @@
 
 @section('content')
 <!-- Hero Catalog Section -->
-<section class="catalog-hero" style="background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80') center/cover no-repeat; padding: {{ isset($searchResults) ? '120px 20px 40px' : '150px 20px 80px' }}; text-align: center; position: relative;">
+@php
+    $catalogBg = \App\Models\Setting::where('key', 'catalog_bg_image')->first();
+    $bgUrl = ($catalogBg && $catalogBg->value) ? Storage::url($catalogBg->value) : 'https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80';
+@endphp
+<section class="catalog-hero" style="background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('{{ $bgUrl }}') center/cover no-repeat; padding: {{ isset($searchResults) ? '120px 20px 40px' : '150px 20px 80px' }}; text-align: center; position: relative;">
     <div style="max-width: 800px; margin: 0 auto; position: relative; z-index: 10;">
         @if(!isset($searchResults))
-        <h1 style="color: white; font-size: 2.5rem; margin-bottom: 2rem; font-weight: 600; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">Pencarian Katalog</h1>
+        <h1 style="color: white; font-size: 2.5rem; margin-bottom: 2rem; font-weight: 600; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">{{ __('nav.catalog_search') }}</h1>
         @endif
         <form action="{{ route('katalog.search') }}" method="GET" style="display: flex; box-shadow: 0 10px 25px rgba(0,0,0,0.2); border-radius: 8px; overflow: hidden; {{ isset($searchResults) ? 'margin-top: 2rem;' : '' }}">
-            <input type="text" name="keyword" value="{{ $keyword ?? '' }}" placeholder="Masukkan kata kunci untuk mencari koleksi..." style="flex: 1; padding: 1.2rem 1.5rem; border: none; font-size: 1.1rem; outline: none;">
+            <input type="text" name="keyword" value="{{ $keyword ?? '' }}" placeholder="{{ __('nav.search_placeholder') }}" style="flex: 1; padding: 1.2rem 1.5rem; border: none; font-size: 1.1rem; outline: none;">
             <button type="submit" style="padding: 0 2rem; background: white; border: none; border-left: 1px solid #e2e8f0; cursor: pointer; color: #64748b; font-size: 1.2rem;"><i class="fa-solid fa-magnifying-glass"></i></button>
         </form>
     </div>
@@ -26,9 +30,9 @@
             <!-- Kolom Kiri: Daftar Buku -->
             <div style="flex: 3; min-width: 300px;">
                 @if(request('search_type') == 'category')
-                    <h2 style="font-size: 1.5rem; color: #334155; margin: 0 0 2rem 0; font-weight: 600; text-transform: capitalize; line-height: 1.2;">Kategori : {{ $keyword }}</h2>
+                    <h2 style="font-size: 1.5rem; color: #334155; margin: 0 0 2rem 0; font-weight: 600; text-transform: capitalize; line-height: 1.2;">{{ __('catalog.category') }} {{ $keyword }}</h2>
                 @else
-                    <h2 style="font-size: 1.5rem; color: #334155; margin: 0 0 2rem 0; font-weight: 600; line-height: 1.2;">Hasil Pencarian : "{{ $keyword }}"</h2>
+                    <h2 style="font-size: 1.5rem; color: #334155; margin: 0 0 2rem 0; font-weight: 600; line-height: 1.2;">{{ __('catalog.search_results') }} "{{ $keyword }}"</h2>
                 @endif
                 
                 @if($searchResults->count() > 0)
@@ -57,41 +61,41 @@
                                 
                                 <div style="flex: 1;">
                                     <h3 style="margin: 0 0 0.8rem; color: #0f172a; font-size: 1.3rem; font-weight: 500;">{{ $book->title }}</h3>
-                                    <a href="#" style="display: inline-block; border: 1px solid #cbd5e1; border-radius: 9999px; padding: 0.3rem 1.2rem; color: #64748b; text-decoration: none; font-size: 0.85rem; margin-bottom: 1rem; transition: border-color 0.2s;">{{ $book->author ?? 'Pengarang Tidak Diketahui' }}</a>
+                                    <a href="#" style="display: inline-block; border: 1px solid #cbd5e1; border-radius: 9999px; padding: 0.3rem 1.2rem; color: #64748b; text-decoration: none; font-size: 0.85rem; margin-bottom: 1rem; transition: border-color 0.2s;">{{ $book->author ?? __('catalog.unknown_author') }}</a>
                                     <p style="color: #475569; font-size: 0.9rem; line-height: 1.6; margin-bottom: 1rem;">
-                                        {{ $book->description ? Str::limit($book->description, 180) : 'Buku ini menggambarkan berbagai elemen penting mengenai subjek yang dibahas, memberikan wawasan yang mendalam bagi para pembaca. Sangat direkomendasikan untuk dibaca.' }}
+                                        {{ $book->description ? Str::limit($book->description, 180) : __('catalog.default_desc') }}
                                     </p>
                                 </div>
                                 
                                 <!-- Ketersediaan -->
                                 <div style="width: 140px; border-left: 1px solid #e2e8f0; padding-left: 1.5rem; margin-left: 1.5rem; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                                    <span style="font-size: 0.75rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">Ketersediaan</span>
+                                    <span style="font-size: 0.75rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">{{ __('catalog.availability') }}</span>
                                     @if($book->is_available)
-                                        <span style="font-size: 1.1rem; font-weight: 600; color: #38bdf8; margin: 1rem 0 1.5rem;">Tersedia</span>
+                                        <span style="font-size: 1.1rem; font-weight: 600; color: #38bdf8; margin: 1rem 0 1.5rem;">{{ __('catalog.available') }}</span>
                                     @else
-                                        <span style="font-size: 1.1rem; font-weight: 600; color: #fbbf24; margin: 1rem 0 1.5rem;">Dipinjam</span>
+                                        <span style="font-size: 1.1rem; font-weight: 600; color: #fbbf24; margin: 1rem 0 1.5rem;">{{ __('catalog.borrowed') }}</span>
                                     @endif
-                                    <a href="{{ route('katalog.show', $book->id) }}" style="display: block; width: 100%; text-align: center; border: 1px solid #3b82f6; color: #3b82f6; padding: 0.5rem; border-radius: 4px; text-decoration: none; font-size: 0.85rem; margin-bottom: 0.5rem; transition: background 0.2s;" onmouseover="this.style.background='#eff6ff'" onmouseout="this.style.background='transparent'">Tampilkan Detail</a>
-                                    <a href="javascript:void(0)" onclick="showCitation('{{ addslashes($book->author) }}', '{{ addslashes($book->publisher) }}')" style="display: block; width: 100%; text-align: center; border: 1px solid #cbd5e1; color: #64748b; padding: 0.5rem; border-radius: 4px; text-decoration: none; font-size: 0.85rem; transition: background 0.2s;" onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background='transparent'">Sitasi</a>
+                                    <a href="{{ route('katalog.show', $book->id) }}" style="display: block; width: 100%; text-align: center; border: 1px solid #3b82f6; color: #3b82f6; padding: 0.5rem; border-radius: 4px; text-decoration: none; font-size: 0.85rem; margin-bottom: 0.5rem; transition: background 0.2s;" onmouseover="this.style.background='#eff6ff'" onmouseout="this.style.background='transparent'">{{ __('catalog.show_details') }}</a>
+                                    <a href="javascript:void(0)" onclick="showCitation('{{ addslashes($book->author) }}', '{{ addslashes($book->publisher) }}')" style="display: block; width: 100%; text-align: center; border: 1px solid #cbd5e1; color: #64748b; padding: 0.5rem; border-radius: 4px; text-decoration: none; font-size: 0.85rem; transition: background 0.2s;" onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background='transparent'">{{ __('catalog.citation') }}</a>
                                 </div>
                             </div>
                             <!-- Expandable Details -->
                             <div id="detail-{{ $book->id }}" style="display: none; padding-top: 1rem; margin-top: 1rem; border-top: 1px dashed #e2e8f0;">
                                 <table style="width: 100%; font-size: 0.9rem; color: #475569; border-collapse: collapse;">
                                     <tr>
-                                        <td style="padding: 0.3rem 0; width: 30%; font-weight: 600; color: #1e293b;">Edisi</td>
+                                        <td style="padding: 0.3rem 0; width: 30%; font-weight: 600; color: #1e293b;">{{ __('catalog.edition') }}</td>
                                         <td style="padding: 0.3rem 0;">-</td>
                                     </tr>
                                     <tr>
-                                        <td style="padding: 0.3rem 0; font-weight: 600; color: #1e293b;">ISBN/ISSN</td>
+                                        <td style="padding: 0.3rem 0; font-weight: 600; color: #1e293b;">{{ __('catalog.isbn') }}</td>
                                         <td style="padding: 0.3rem 0;">{{ $book->isbn ?? '-' }}</td>
                                     </tr>
                                     <tr>
-                                        <td style="padding: 0.3rem 0; font-weight: 600; color: #1e293b;">Deskripsi Fisik</td>
+                                        <td style="padding: 0.3rem 0; font-weight: 600; color: #1e293b;">{{ __('catalog.physical_desc') }}</td>
                                         <td style="padding: 0.3rem 0;">-</td>
                                     </tr>
                                     <tr>
-                                        <td style="padding: 0.3rem 0; font-weight: 600; color: #1e293b;">Judul Seri</td>
+                                        <td style="padding: 0.3rem 0; font-weight: 600; color: #1e293b;">{{ __('catalog.series_title') }}</td>
                                         <td style="padding: 0.3rem 0;">-</td>
                                     </tr>
                                     <tr>
@@ -160,7 +164,7 @@
 
         <!-- Subjects / Subjek Menarik -->
         <div style="margin-bottom: 4rem; text-align: center;">
-            <h3 style="font-size: 1.2rem; color: #64748b; font-weight: 400; margin-bottom: 2rem;">Pilih subjek yang menarik bagi Anda</h3>
+            <h3 style="font-size: 1.2rem; color: #64748b; font-weight: 400; margin-bottom: 2rem;">{{ __('catalog.select_subject') }}</h3>
             
             <div style="display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap;">
                 @foreach($categories->whereIn('id', $mainCategoryIds) as $cat)
@@ -175,7 +179,7 @@
                     <div class="subject-icon">
                         <i class="fa-solid fa-ellipsis" style="font-size: 2.5rem; color: #64748b;"></i>
                     </div>
-                    <div class="subject-text">Lihat lainnya..</div>
+                    <div class="subject-text">{{ __('catalog.see_more') }}</div>
                 </a>
             </div>
         </div>
@@ -184,7 +188,7 @@
         <div id="subjectModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box;">
             <div style="background: white; border-radius: 8px; width: 100%; max-width: 800px; max-height: 90vh; overflow-y: auto; position: relative; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);">
                 <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 2rem; border-bottom: 1px solid #e2e8f0;">
-                    <h3 style="margin: 0; font-size: 1.25rem; color: #334155; font-weight: 600;">Pilih subjek yang menarik bagi Anda</h3>
+                    <h3 style="margin: 0; font-size: 1.25rem; color: #334155; font-weight: 600;">{{ __('catalog.select_subject') }}</h3>
                     <button onclick="document.getElementById('subjectModal').style.display='none'" style="background: none; border: none; font-size: 1.5rem; color: #94a3b8; cursor: pointer;">&times;</button>
                 </div>
                 <div style="padding: 2rem;">
@@ -207,8 +211,8 @@
 
         <!-- Populer -->
         <div style="margin-bottom: 4rem;">
-            <h2 style="font-size: 1.5rem; color: #1e293b; font-weight: 600; margin-bottom: 0.5rem;">Yang populer di antara koleksi kami</h2>
-            <p style="color: #64748b; font-size: 0.9rem; margin-bottom: 1.5rem;">Koleksi-koleksi kami yang dibaca oleh banyak pengunjung perpustakaan. Mari berkunjung dan membacanya.</p>
+            <h2 style="font-size: 1.5rem; color: #1e293b; font-weight: 600; margin-bottom: 0.5rem;">{{ __('catalog.popular_title') }}</h2>
+            <p style="color: #64748b; font-size: 0.9rem; margin-bottom: 1.5rem;">{{ __('catalog.popular_desc') }}</p>
             
             <!-- Tags -->
             <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem;">
@@ -227,8 +231,8 @@
 
         <!-- Baru & Diperbarui -->
         <div style="margin-bottom: 4rem;">
-            <h2 style="font-size: 1.5rem; color: #1e293b; font-weight: 600; margin-bottom: 0.5rem;">Koleksi baru dan diperbarui</h2>
-            <p style="color: #64748b; font-size: 0.9rem; margin-bottom: 1.5rem;">Merupakan daftar koleksi terbaru kami. Mari semuanya buka, telusuri koleksi yang baru di sistem kami. Selamat menikmati!</p>
+            <h2 style="font-size: 1.5rem; color: #1e293b; font-weight: 600; margin-bottom: 0.5rem;">{{ __('catalog.new_title') }}</h2>
+            <p style="color: #64748b; font-size: 0.9rem; margin-bottom: 1.5rem;">{{ __('catalog.new_desc') }}</p>
             
             <!-- Tags -->
             <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem;">
