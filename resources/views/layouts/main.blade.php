@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perpustakaan UNG - Universitas Negeri Gorontalo</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
     <!-- Google Fonts: Outfit -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,9 +30,14 @@
     <!-- Navbar -->
     <nav class="navbar">
         <div class="nav-brand">
-            <!-- Using UNG Logo from local storage -->
-            <img src="{{ asset('images/logo.png') }}" alt="Logo UNG" style="height: 40px;">
-            <a href="{{ route('home') }}" style="color: inherit; text-decoration: none;">Perpustakaan UNG</a>
+            <!-- Logo dan Nama Website dalam satu link -->
+            <a href="{{ route('home') }}" class="brand-link">
+                <img src="{{ asset('images/logo.png') }}" alt="Logo UNG" class="brand-logo">
+                <div class="brand-text">
+                    <span class="brand-name">Perpustakaan UNG</span>
+                    <span class="brand-sub">Universitas Negeri Gorontalo</span>
+                </div>
+            </a>
         </div>
         <div class="nav-center-wrapper">
             <ul class="nav-menu">
@@ -41,9 +48,9 @@
                         <div class="mega-column">
                             <h4 class="mega-title">LAYANAN DARING</h4>
                             <ul class="mega-list">
-                                <li><a href="{{ route('cek-pinjaman') }}">Cek Pinjaman</a></li>
-                                <li><a href="{{ route('usulan-buku.index') }}">Usulan Buku Baru</a></li>
-                                <li><a href="{{ route('saran-masukan.index') }}">Saran dan Masukan</a></li>
+                                <li><a href="{{ route('cek-pinjaman') }}"><i class="fa-solid fa-file-invoice"></i> Cek Pinjaman</a></li>
+                                <li><a href="{{ route('usulan-buku.index') }}"><i class="fa-solid fa-book-medical"></i> Usulan Buku Baru</a></li>
+                                <li><a href="{{ route('saran-masukan.index') }}"><i class="fa-solid fa-comment-dots"></i> Saran dan Masukan</a></li>
                             </ul>
                         </div>
                         <div class="mega-column">
@@ -64,7 +71,7 @@
                         <ul class="mega-list">
                             @if(isset($globalGuidelines) && $globalGuidelines->count() > 0)
                                 @foreach($globalGuidelines as $guide)
-                                    <li><a href="{{ route('katalog.guidelines', $guide->slug) }}">{{ app()->getLocale() == 'en' && $guide->title_en ? $guide->title_en : $guide->title_id }}</a></li>
+                                    <li><a href="{{ route('katalog.guidelines', $guide->slug) }}"><i class="fa-solid fa-book-open"></i> {{ app()->getLocale() == 'en' && $guide->title_en ? $guide->title_en : $guide->title_id }}</a></li>
                                 @endforeach
                             @endif
                         </ul>
@@ -74,9 +81,9 @@
                     <a href="#">E-Resources <i class="fa-solid fa-chevron-down" style="font-size:0.7em;"></i></a>
                     <div class="mega-menu">
                         <ul class="mega-list">
-                            <li><a href="{{ route('katalog.search') }}">Katalog Online</a></li>
-                            <li><a href="https://ejurnal.ung.ac.id/index.php" target="_blank">e-Journal</a></li>
-                            <li><a href="https://repository.ung.ac.id/" target="_blank">Digital Repository</a></li>
+                            <li><a href="{{ route('katalog.search') }}"><i class="fa-solid fa-magnifying-glass"></i> Katalog Online</a></li>
+                            <li><a href="https://ejurnal.ung.ac.id/index.php" target="_blank"><i class="fa-solid fa-newspaper"></i> e-Journal</a></li>
+                            <li><a href="https://repository.ung.ac.id/" target="_blank"><i class="fa-solid fa-server"></i> Digital Repository</a></li>
                         </ul>
                     </div>
                 </li>
@@ -88,7 +95,7 @@
                                 $aboutMenus = \App\Models\AboutPage::where('is_active', true)->orderBy('order', 'asc')->get();
                             @endphp
                             @foreach($aboutMenus as $menu)
-                                <li><a href="{{ route('tentang-kami', $menu->slug) }}">{{ app()->getLocale() == 'en' && $menu->title_en ? $menu->title_en : $menu->title_id }}</a></li>
+                                <li><a href="{{ route('tentang-kami', $menu->slug) }}"><i class="fa-solid fa-circle-info"></i> {{ app()->getLocale() == 'en' && $menu->title_en ? $menu->title_en : $menu->title_id }}</a></li>
                             @endforeach
                         </ul>
                     </div>
@@ -97,19 +104,23 @@
                     <a href="#">Bantuan <i class="fa-solid fa-chevron-down" style="font-size:0.7em;"></i></a>
                     <div class="mega-menu">
                         <ul class="mega-list">
-                            <li><a href="{{ route('katalog.faq') }}">FAQ</a></li>
+                            <li><a href="{{ route('katalog.faq') }}"><i class="fa-solid fa-circle-question"></i> FAQ</a></li>
                         </ul>
                     </div>
                 </li>
             </ul>
-            <div class="lang-flags">
-                <a href="{{ route('lang', 'id') }}"><img src="https://flagcdn.com/w40/id.png" alt="Indonesian"></a>
-                <a href="{{ route('lang', 'en') }}"><img src="https://flagcdn.com/w40/gb.png" alt="English"></a>
+            <div class="nav-actions">
+                <div class="nav-divider"></div>
+                <div class="lang-flags">
+                    <a href="{{ route('lang', 'id') }}"><img src="https://flagcdn.com/w40/id.png" alt="Indonesian"></a>
+                    <a href="{{ route('lang', 'en') }}"><img src="https://flagcdn.com/w40/gb.png" alt="English"></a>
+                </div>
+                <a href="{{ route('katalog.search') }}" class="nav-search-icon"><i class="fa-solid fa-magnifying-glass"></i></a>
             </div>
         </div>
         
-        <div class="nav-right" style="display: flex; align-items: center; position: relative; width: 70px;">
-            <img src="{{ asset('images/akreditasi.png') }}" alt="Terakreditasi A" style="position: absolute; right: 0; top: -35px; height: 95px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15)); z-index: 1001;">
+        <div class="nav-right">
+            <img src="{{ asset('images/akreditasi.png') }}" alt="Terakreditasi A" class="nav-akreditasi">
         </div>
     </nav>
 
