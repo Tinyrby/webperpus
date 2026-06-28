@@ -93,7 +93,15 @@
                         </ul>
                     </div>
                 </li>
-                <li><a href="#">Bantuan <i class="fa-solid fa-chevron-down" style="font-size:0.7em;"></i></a></li>
+                <li class="nav-dropdown">
+                    <a href="#">Bantuan <i class="fa-solid fa-chevron-down" style="font-size:0.7em;"></i></a>
+                    <div class="mega-menu" style="min-width: 200px;">
+                        <ul class="mega-list">
+                            <li><a href="{{ route('faq') }}">FAQ</a></li>
+                            <li><a href="{{ route('katalog.help') }}">Bantuan Pencarian</a></li>
+                        </ul>
+                    </div>
+                </li>
             </ul>
             <div class="lang-flags">
                 <a href="{{ route('lang', 'id') }}"><img src="https://flagcdn.com/w40/id.png" alt="Indonesian"></a>

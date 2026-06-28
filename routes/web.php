@@ -16,8 +16,10 @@ use App\Http\Controllers\AdminFeedbackController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\AdminCategoryController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\FaqController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/faq', [FaqController::class, 'index'])->name('faq');
 Route::get('/katalog', [CatalogController::class, 'index'])->name('katalog.search');
 Route::get('/katalog/informasi', [CatalogController::class, 'information'])->name('katalog.information');
 Route::get('/katalog/bantuan', [CatalogController::class, 'help'])->name('katalog.help');
