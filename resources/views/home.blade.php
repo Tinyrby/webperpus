@@ -2,9 +2,10 @@
 
 @section('content')
     <!-- Hero Section -->
-    <section class="hero" @if(isset($heroImage) && $heroImage->value)
-        style="background: linear-gradient(to right, rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.4)), url('{{ asset('storage/' . $heroImage->value) }}') center/cover no-repeat;"
-    @endif>
+    <div class="hero-wrapper">
+        <section class="hero" @if(isset($heroImage) && $heroImage->value)
+            style="background: linear-gradient(to right, rgba(15, 23, 42, 0.55), rgba(153, 0, 0, 0.5)), url('{{ asset('storage/' . $heroImage->value) }}') center/cover no-repeat;"
+        @endif>
         <div class="hero-content">
             <h1 class="hero-title">Perpustakaan UNG</h1>
             <p class="hero-subtitle">Perpustakaan yang inovatif dan unggul dalam informasi dan edukasi</p>
@@ -29,7 +30,8 @@
                 </div>
             </form>
         </div>
-    </section>
+        </section>
+    </div>
 
     <!-- Services Section -->
     <section class="section">
@@ -68,24 +70,24 @@
 
     <!-- Facilities Section -->
     <section class="section" style="background-color: var(--white);">
-        <h2 class="section-title" style="color: var(--primary-light); font-size: 1.5rem; letter-spacing: 2px;">FASILITAS
-        </h2>
+        <h2 class="section-title" style="color: var(--primary-dark);">Fasilitas</h2>
         <p class="section-subtitle">Apa saja fasilitas yang ada di perpustakaan UNG?</p>
 
         <div class="facilities-grid">
             @forelse($facilities as $facility)
                 <div class="facility-card">
-                    <div class="img-wrapper">
-                        @if($facility->image_path)
-                            <img src="{{ asset('storage/' . $facility->image_path) }}" class="facility-img"
-                                alt="{{ $facility->name }}">
-                        @else
-                            <div
-                                style="height: 220px; background: #eee; display: flex; align-items:center; justify-content:center;">
-                                No Image</div>
-                        @endif
+                    @if($facility->image_path)
+                        <img src="{{ asset('storage/' . $facility->image_path) }}" class="facility-img" alt="{{ $facility->name }}">
+                    @else
+                        <div class="facility-no-img">No Image</div>
+                    @endif
+                    <div class="facility-overlay"></div>
+                    <div class="facility-action">
+                        <span>Lihat Detail</span>
                     </div>
-                    <div class="facility-name">{{ $facility->name }}</div>
+                    <div class="facility-content">
+                        <h3 class="facility-name">{{ $facility->name }}</h3>
+                    </div>
                 </div>
             @empty
                 <p style="text-align: center; color: var(--text-muted); width: 100%; grid-column: 1 / -1;">Belum ada data
