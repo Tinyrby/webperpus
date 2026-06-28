@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Facility extends Model
 {
-    protected $fillable = ['name', 'image_path'];
+    protected $fillable = ['slug', 'name', 'description', 'image_path'];
 }

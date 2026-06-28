@@ -49,8 +49,8 @@
                         <div class="mega-column">
                             <h4 class="mega-title">FASILITAS</h4>
                             <ul class="mega-list">
-                                @forelse($facilities ?? [] as $facility)
-                                <li><a href="#">{{ $facility->name }}</a></li>
+                                @forelse($globalFacilities ?? [] as $facility)
+                                <li><a href="{{ route('katalog.facilities', $facility->slug ?? $facility->id) }}">{{ $facility->name }}</a></li>
                                 @empty
                                 <li><a href="#" style="color: var(--text-muted); font-style: italic;">Belum ada fasilitas</a></li>
                                 @endforelse
@@ -60,7 +60,7 @@
                 </li>
                 <li class="nav-dropdown">
                     <a href="#">Panduan <i class="fa-solid fa-chevron-down" style="font-size:0.7em;"></i></a>
-                    <div class="mega-menu" style="min-width: 320px;">
+                    <div class="mega-menu">
                         <ul class="mega-list">
                             @if(isset($globalGuidelines) && $globalGuidelines->count() > 0)
                                 @foreach($globalGuidelines as $guide)
@@ -72,17 +72,17 @@
                 </li>
                 <li class="nav-dropdown">
                     <a href="#">E-Resources <i class="fa-solid fa-chevron-down" style="font-size:0.7em;"></i></a>
-                    <div class="mega-menu" style="min-width: 200px;">
+                    <div class="mega-menu">
                         <ul class="mega-list">
                             <li><a href="{{ route('katalog.search') }}">Katalog Online</a></li>
-                            <li><a href="#">e-Journal</a></li>
-                            <li><a href="#">Digital Repository</a></li>
+                            <li><a href="https://ejurnal.ung.ac.id/index.php" target="_blank">e-Journal</a></li>
+                            <li><a href="https://repository.ung.ac.id/" target="_blank">Digital Repository</a></li>
                         </ul>
                     </div>
                 </li>
                 <li class="nav-dropdown">
                     <a href="#">Tentang Kami <i class="fa-solid fa-chevron-down" style="font-size:0.7em;"></i></a>
-                    <div class="mega-menu" style="min-width: 220px;">
+                    <div class="mega-menu">
                         <ul class="mega-list">
                             @php
                                 $aboutMenus = \App\Models\AboutPage::where('is_active', true)->orderBy('order', 'asc')->get();
@@ -93,7 +93,14 @@
                         </ul>
                     </div>
                 </li>
-                <li><a href="#">Bantuan <i class="fa-solid fa-chevron-down" style="font-size:0.7em;"></i></a></li>
+                <li class="nav-dropdown">
+                    <a href="#">Bantuan <i class="fa-solid fa-chevron-down" style="font-size:0.7em;"></i></a>
+                    <div class="mega-menu">
+                        <ul class="mega-list">
+                            <li><a href="{{ route('katalog.faq') }}">FAQ</a></li>
+                        </ul>
+                    </div>
+                </li>
             </ul>
             <div class="lang-flags">
                 <a href="{{ route('lang', 'id') }}"><img src="https://flagcdn.com/w40/id.png" alt="Indonesian"></a>

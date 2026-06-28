@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Facility;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class FacilityController extends Controller
 {
@@ -24,13 +25,16 @@ class FacilityController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $path = $request->file('image')->store('facilities', 'public');
 
         Facility::create([
+            'slug' => Str::slug($request->name),
             'name' => $request->name,
+            'description' => $request->description,
             'image_path' => $path,
         ]);
 
@@ -46,10 +50,15 @@ class FacilityController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $data = ['name' => $request->name];
+        $data = [
+            'slug' => Str::slug($request->name),
+            'name' => $request->name,
+            'description' => $request->description,
+        ];
 
         if ($request->hasFile('image')) {
             if ($facility->image_path) {

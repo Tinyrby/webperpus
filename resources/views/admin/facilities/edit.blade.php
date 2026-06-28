@@ -14,7 +14,11 @@
             <input type="text" name="name" id="name" class="form-control" required value="{{ old('name', $facility->name) }}">
             @error('name') <small style="color: red;">{{ $message }}</small> @enderror
         </div>
-
+        <div class="form-group">
+            <label class="form-label" for="description">Deskripsi Fasilitas</label>
+            <textarea name="description" id="description" class="form-control" rows="5">{{ old('description', $facility->description) }}</textarea>
+            @error('description') <small style="color: red;">{{ $message }}</small> @enderror
+        </div>
         <div class="form-group">
             <label class="form-label" for="image">Gambar Fasilitas (Kosongkan jika tidak ingin mengubah)</label>
             <input type="file" name="image" id="image" class="form-control" accept="image/*">

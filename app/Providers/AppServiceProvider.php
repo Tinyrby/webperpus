@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use Illuminate\Pagination\Paginator;
 use App\Models\Guideline;
+use App\Models\Facility;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,7 +28,12 @@ class AppServiceProvider extends ServiceProvider
         // Share guidelines to main and catalog layouts
         View::composer(['layouts.main', 'layouts.catalog'], function ($view) {
             $globalGuidelines = Guideline::where('is_active', true)->orderBy('order', 'asc')->get();
-            $view->with('globalGuidelines', $globalGuidelines);
+            $globalFacilities = Facility::all();
+            
+            $view->with([
+                'globalGuidelines' => $globalGuidelines,
+                'globalFacilities' => $globalFacilities
+            ]);
         });
     }
 }

@@ -82,7 +82,8 @@
             top: 100%;
             left: -1rem;
             background: white;
-            min-width: 350px;
+            min-width: 150px;
+            max-width: 300px;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
             border-radius: 8px;
             padding: 0.5rem 0;
@@ -104,6 +105,7 @@
             font-size: 0.95rem;
             font-weight: 400;
             white-space: normal;
+            word-wrap: break-word;
         }
         .catalog-menu .dropdown-menu a:hover {
             background-color: #f8fafc;
@@ -288,7 +290,12 @@
                 </ul>
             </li>
             <li><a href="{{ route('katalog.information') }}">{{ __('nav.information') }}</a></li>
-            <li><a href="{{ route('katalog.help') }}">{{ __('nav.help') }}</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle">{{ __('nav.help') }} <i class="fa-solid fa-chevron-down" style="font-size: 0.8rem; margin-left: 3px;"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{{ route('katalog.faq') }}">FAQ</a></li>
+                </ul>
+            </li>
         </ul>
         <div class="catalog-lang">
             <a href="{{ route('lang', 'en') }}"><img src="https://flagcdn.com/w40/gb.png" alt="English" title="English"></a>

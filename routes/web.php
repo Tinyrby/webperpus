@@ -22,6 +22,8 @@ Route::get('/katalog', [CatalogController::class, 'index'])->name('katalog.searc
 Route::get('/katalog/informasi', [CatalogController::class, 'information'])->name('katalog.information');
 Route::get('/katalog/bantuan', [CatalogController::class, 'help'])->name('katalog.help');
 Route::get('/katalog/panduan/{slug?}', [CatalogController::class, 'guidelines'])->name('katalog.guidelines');
+Route::get('/katalog/faq/{slug?}', [CatalogController::class, 'faq'])->name('katalog.faq');
+Route::get('/katalog/fasilitas/{slug?}', [CatalogController::class, 'facilities'])->name('katalog.facilities');
 Route::get('/katalog/{book}', [CatalogController::class, 'show'])->name('katalog.show');
 Route::post('/katalog/{book}/comments', [CatalogController::class, 'storeComment'])->name('katalog.comments.store');
 Route::get('/lang/{locale}', [App\Http\Controllers\LanguageController::class, 'switch'])->name('lang');
