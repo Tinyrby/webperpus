@@ -3,14 +3,29 @@
 @section('main-class', 'no-hero')
 
 @section('content')
-<div class="container" style="max-width: 800px; margin: 4rem auto; padding: 2rem;">
-    <h2 style="text-align: center; color: var(--primary-color); margin-bottom: 2rem; font-size: 2rem;">Cek Pinjaman</h2>
+<div class="container" style="max-width: 800px; margin: 0 auto; padding: 2rem; min-height: 85vh; display: flex; flex-direction: column; justify-content: center;">
+    <h2 style="text-align: center; color: var(--primary-color); margin-bottom: 0.5rem; font-size: 2rem;">Cek Pinjaman</h2>
+    <p style="text-align: center; color: var(--text-muted); margin-bottom: 2rem; font-size: 1rem;">
+        Masukkan NIM Anda untuk melihat status peminjaman buku.
+    </p>
     
-    <div style="display: flex; justify-content: center; margin-bottom: 3rem;">
-        <form action="{{ route('cek-pinjaman') }}" method="GET" style="display: flex; width: 100%; max-width: 500px; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;">
-            <input type="text" name="nim" value="{{ request('nim') }}" placeholder="Masukkan NIM" style="flex: 1; padding: 1rem 1.5rem; border: none; outline: none; font-size: 1rem; font-family: inherit;">
-            <button type="submit" style="background-color: #0052cc; color: white; border: none; padding: 0 2rem; font-weight: 600; cursor: pointer; transition: background-color 0.3s;">Cari</button>
+    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 3rem;">
+        <form action="{{ route('cek-pinjaman') }}" method="GET" class="search-container" style="width: 100%; max-width: 600px; margin: 0; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
+            <input type="text" name="nim" value="{{ request('nim') }}" class="search-input" placeholder="Masukkan NIM Anda...">
+            <button type="submit" class="search-btn"><i class="fa-solid fa-magnifying-glass"></i> Cek</button>
         </form>
+        
+        <div style="display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap; justify-content: center;">
+            <a href="{{ route('usulan-buku.index') }}" style="background: white; border: 1px solid #e2e8f0; padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.85rem; color: #64748b; text-decoration: none; display: flex; align-items: center; gap: 0.5rem; transition: all 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.02);" onmouseover="this.style.borderColor='var(--primary-color)'; this.style.color='var(--primary-color)';" onmouseout="this.style.borderColor='#e2e8f0'; this.style.color='#64748b';">
+                <i class="fa-solid fa-lightbulb"></i> Usulkan Buku Baru
+            </a>
+            <a href="{{ route('katalog.search') }}" style="background: white; border: 1px solid #e2e8f0; padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.85rem; color: #64748b; text-decoration: none; display: flex; align-items: center; gap: 0.5rem; transition: all 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.02);" onmouseover="this.style.borderColor='var(--primary-color)'; this.style.color='var(--primary-color)';" onmouseout="this.style.borderColor='#e2e8f0'; this.style.color='#64748b';">
+                <i class="fa-solid fa-book-open"></i> Lihat Katalog
+            </a>
+            <a href="{{ route('katalog.information') }}" style="background: white; border: 1px solid #e2e8f0; padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.85rem; color: #64748b; text-decoration: none; display: flex; align-items: center; gap: 0.5rem; transition: all 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.02);" onmouseover="this.style.borderColor='var(--primary-color)'; this.style.color='var(--primary-color)';" onmouseout="this.style.borderColor='#e2e8f0'; this.style.color='#64748b';">
+                <i class="fa-solid fa-clock"></i> Jam Layanan
+            </a>
+        </div>
     </div>
 
     @if($nim)

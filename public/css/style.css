@@ -197,7 +197,8 @@ ul {
 .mega-column {
     flex: 1;
     min-width: 180px;
-    max-width: 280px; /* Membatasi lebar agar tidak melebar tanpa batas */
+    max-width: 280px;
+    /* Membatasi lebar agar tidak melebar tanpa batas */
 }
 
 .mega-column:not(:last-child) {
@@ -228,12 +229,14 @@ ul {
     font-size: 0.95rem;
     transition: var(--transition);
     display: flex;
-    align-items: flex-start; /* Agar ikon tetap di atas jika teks turun baris */
+    align-items: flex-start;
+    /* Agar ikon tetap di atas jika teks turun baris */
     gap: 8px;
     width: 100%;
     padding: 0.5rem 0;
     position: relative;
-    white-space: normal; /* Mengizinkan teks untuk turun ke baris baru */
+    white-space: normal;
+    /* Mengizinkan teks untuk turun ke baris baru */
     line-height: 1.4;
 }
 
@@ -246,8 +249,10 @@ ul {
     color: var(--primary-color);
     width: 20px;
     text-align: center;
-    flex-shrink: 0; /* Mencegah ikon menyusut jika teks panjang */
-    margin-top: 3px; /* Menyesuaikan tinggi ikon dengan teks yang wrap */
+    flex-shrink: 0;
+    /* Mencegah ikon menyusut jika teks panjang */
+    margin-top: 3px;
+    /* Menyesuaikan tinggi ikon dengan teks yang wrap */
 }
 
 .mega-list li a:hover {
