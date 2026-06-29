@@ -103,7 +103,8 @@ ul {
 .brand-sub {
     font-weight: 600;
     font-size: 0.6rem;
-    color: var(--primary-color);
+    color: #0a192f;
+    /* Dark Navy Blue */
     text-transform: uppercase;
     white-space: nowrap;
     letter-spacing: 0.5px;
@@ -846,7 +847,7 @@ ul {
 
 .custom-shape-divider-top {
     position: absolute;
-    top: 0;
+    top: -1px;
     left: 0;
     width: 100%;
     overflow: hidden;
@@ -861,7 +862,7 @@ ul {
 }
 
 .custom-shape-divider-top .shape-fill {
-    fill: var(--white);
+    fill: var(--bg-color);
 }
 
 .footer-content {
@@ -981,5 +982,293 @@ ul {
 
     .footer-stats-policy {
         text-align: center;
+    }
+}
+
+/* Modern Form Styles */
+.form-page-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: calc(100vh - 200px);
+    padding: 0 1rem 4rem 1rem;
+}
+
+.form-container {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 2.5rem;
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.form-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background: var(--primary-color);
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.form-title {
+    color: var(--primary-dark);
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+}
+
+.form-subtitle {
+    color: var(--text-muted);
+    font-size: 1rem;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.form-row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 0;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+.form-group.half-width {
+    flex: 1;
+}
+
+.form-label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    color: var(--text-main);
+    font-size: 0.85rem;
+}
+
+.text-danger {
+    color: var(--primary-color);
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.65rem 1rem;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text-main);
+    background-color: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: var(--radius-md);
+    transition: var(--transition);
+    outline: none;
+}
+
+.form-control:focus {
+    background-color: var(--white);
+    border-color: var(--primary-light);
+    box-shadow: 0 0 0 4px rgba(204, 0, 0, 0.1);
+}
+
+.form-control::placeholder {
+    color: #94a3b8;
+    font-weight: 400;
+}
+
+textarea.form-control {
+    resize: vertical;
+    min-height: 90px;
+}
+
+.alert {
+    padding: 1rem 1.5rem;
+    border-radius: var(--radius-md);
+    margin-bottom: 2rem;
+    font-weight: 500;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    animation: fadeIn 0.5s ease;
+}
+
+.alert i {
+    margin-top: 0.2rem;
+}
+
+.alert-success {
+    background-color: #f0fdf4;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+}
+
+.alert-danger {
+    background-color: #fef2f2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+}
+
+.alert-danger ul {
+    margin: 0;
+    padding-left: 1.5rem;
+}
+
+.btn-submit {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: var(--white);
+    border: none;
+    padding: 0.75rem 2rem;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 700;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 4px 10px rgba(204, 0, 0, 0.2);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.btn-submit:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(204, 0, 0, 0.3);
+}
+
+.btn-submit:active {
+    transform: translateY(0);
+}
+
+.captcha-container {
+    background: #f1f5f9;
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    border: 1px dashed #cbd5e1;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.captcha-label {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--text-main);
+    margin-bottom: 0.75rem;
+    display: block;
+    letter-spacing: 1px;
+}
+
+/* Decorative Background Patterns */
+.bg-decorative {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--bg-color);
+}
+
+@keyframes float-graphic {
+    0% {
+        transform: translateY(0) rotate(var(--base-rot));
+    }
+
+    50% {
+        transform: translateY(-20px) rotate(calc(var(--base-rot) + 3deg));
+    }
+
+    100% {
+        transform: translateY(0) rotate(var(--base-rot));
+    }
+}
+
+.bg-graphic {
+    position: absolute;
+    z-index: 0;
+    color: transparent;
+    -webkit-text-stroke: 3px var(--primary-color);
+    opacity: 0.15;
+    pointer-events: none;
+    animation: float-graphic 5s ease-in-out infinite;
+}
+
+.bg-graphic-tl {
+    top: 5%;
+    left: 5%;
+    font-size: min(15vw, 12rem);
+    --base-rot: -15deg;
+    transform: rotate(var(--base-rot));
+    animation-delay: 0s;
+}
+
+.bg-graphic-tr {
+    top: 5%;
+    right: 5%;
+    font-size: min(15vw, 12rem);
+    --base-rot: 15deg;
+    transform: rotate(var(--base-rot));
+    animation-delay: -3s;
+}
+
+.bg-graphic-bl {
+    bottom: 5%;
+    left: 5%;
+    font-size: min(15vw, 12rem);
+    --base-rot: 10deg;
+    transform: rotate(var(--base-rot));
+    animation-delay: -6s;
+}
+
+.bg-graphic-br {
+    bottom: 5%;
+    right: 5%;
+    font-size: min(15vw, 12rem);
+    --base-rot: -10deg;
+    transform: rotate(var(--base-rot));
+    animation-delay: -9s;
+}
+
+.bg-graphic-ml {
+    top: 45%;
+    left: 2%;
+    font-size: min(12vw, 10rem);
+    --base-rot: 25deg;
+    transform: rotate(var(--base-rot));
+    animation-delay: -2s;
+}
+
+.bg-graphic-mr {
+    top: 35%;
+    right: 2%;
+    font-size: min(12vw, 10rem);
+    --base-rot: -20deg;
+    transform: rotate(var(--base-rot));
+    animation-delay: -5s;
+}
+
+
+
+.content-relative {
+    position: relative;
+    z-index: 1;
+}
+
+@media (max-width: 640px) {
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .form-container {
+        padding: 2rem 1.5rem;
+        margin: 2rem 1rem;
     }
 }

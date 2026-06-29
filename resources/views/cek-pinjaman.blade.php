@@ -3,7 +3,13 @@
 @section('main-class', 'no-hero')
 
 @section('content')
-<div class="container" style="max-width: 800px; margin: 0 auto; padding: 2rem; min-height: 85vh; display: flex; flex-direction: column; justify-content: center;">
+<div class="bg-decorative" style="min-height: calc(100vh - 100px); display: flex; flex-direction: column; justify-content: center; position: relative;">
+    <i class="fa-solid fa-book-open bg-graphic bg-graphic-tl"></i>
+    <i class="fa-solid fa-graduation-cap bg-graphic bg-graphic-tr"></i>
+    <i class="fa-solid fa-microscope bg-graphic bg-graphic-bl"></i>
+    <i class="fa-solid fa-award bg-graphic bg-graphic-br"></i>
+    <div class="container content-relative" style="max-width: 800px; margin: 0 auto; padding: 2rem;">
+        
     <h2 style="text-align: center; color: var(--primary-color); margin-bottom: 0.5rem; font-size: 2rem;">Cek Pinjaman</h2>
     <p style="text-align: center; color: var(--text-muted); margin-bottom: 2rem; font-size: 1rem;">
         Masukkan NIM Anda untuk melihat status peminjaman buku.
@@ -82,5 +88,6 @@
             </div>
         @endif
     @endif
+    </div>
 </div>
 @endsection
