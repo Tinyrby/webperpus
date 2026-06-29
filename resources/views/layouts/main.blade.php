@@ -23,9 +23,27 @@
         .main-content.no-hero {
             padding-top: 100px; /* offset for fixed navbar */
         }
+        
+        /* Mencegah hover navbar terpicu otomatis saat ganti halaman */
+        body.disable-hover .nav-dropdown:hover .mega-menu,
+        body.disable-hover .nav-dropdown:hover .dropdown-menu {
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
+        }
+        body.disable-hover .nav-dropdown:hover>a i {
+            transform: rotate(0deg) !important;
+        }
     </style>
 </head>
-<body>
+<body class="disable-hover">
+<script>
+    // Remove disable-hover class on first mouse movement
+    window.addEventListener('mousemove', function handleMouseMove() {
+        document.body.classList.remove('disable-hover');
+        window.removeEventListener('mousemove', handleMouseMove);
+    }, { once: true });
+</script>
 
     <!-- Navbar -->
     <nav class="navbar">

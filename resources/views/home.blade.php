@@ -75,7 +75,7 @@
 
         <div class="facilities-grid">
             @forelse($facilities as $facility)
-                <div class="facility-card">
+                <a href="{{ route('katalog.facilities', $facility->slug ?? $facility->id) }}" class="facility-card" style="display: block; text-decoration: none;">
                     @if($facility->image_path)
                         <img src="{{ asset('storage/' . $facility->image_path) }}" class="facility-img" alt="{{ $facility->name }}">
                     @else
@@ -88,7 +88,7 @@
                     <div class="facility-content">
                         <h3 class="facility-name">{{ $facility->name }}</h3>
                     </div>
-                </div>
+                </a>
             @empty
                 <p style="text-align: center; color: var(--text-muted); width: 100%; grid-column: 1 / -1;">Belum ada data
                     fasilitas. Silakan tambahkan melalui halaman Admin.</p>

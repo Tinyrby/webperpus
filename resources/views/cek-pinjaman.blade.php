@@ -10,7 +10,7 @@
     <i class="fa-solid fa-award bg-graphic bg-graphic-br"></i>
     <div class="container content-relative" style="max-width: 800px; margin: 0 auto; padding: 2rem;">
         
-    <h2 style="text-align: center; color: var(--primary-color); margin-bottom: 0.5rem; font-size: 2rem;">Cek Pinjaman</h2>
+    <h2 style="text-align: center; color: var(--primary-dark); margin-bottom: 0.5rem; font-size: 2rem;">Cek Pinjaman</h2>
     <p style="text-align: center; color: var(--text-muted); margin-bottom: 2rem; font-size: 1rem;">
         Masukkan NIM Anda untuk melihat status peminjaman buku.
     </p>

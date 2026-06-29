@@ -10,9 +10,9 @@
     <i class="fa-solid fa-face-smile bg-graphic bg-graphic-br"></i>
     <div class="form-container content-relative">
         <div class="form-header">
-        <h2 class="form-title">Saran dan Masukan</h2>
-        <p class="form-subtitle">Kami sangat menghargai setiap saran, kritik, dan masukan Anda untuk peningkatan layanan Perpustakaan.</p>
-    </div>
+            <h2 class="form-title">Saran dan Masukan</h2>
+            <p class="form-subtitle">Kami sangat menghargai setiap saran, kritik, dan masukan Anda untuk peningkatan layanan Perpustakaan.</p>
+        </div>
     
     @if(session('success'))
         <div class="alert alert-success">

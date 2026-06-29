@@ -12,9 +12,9 @@
     <i class="fa-solid fa-glasses bg-graphic bg-graphic-mr"></i>
     <div class="form-container content-relative">
         <div class="form-header">
-        <h2 class="form-title">Usulan Buku Baru</h2>
-        <p class="form-subtitle">Bantu kami memperkaya koleksi perpustakaan dengan mengusulkan buku atau referensi yang Anda butuhkan.</p>
-    </div>
+            <h2 class="form-title">Usulan Buku Baru</h2>
+            <p class="form-subtitle">Bantu kami memperkaya koleksi perpustakaan dengan mengusulkan buku atau referensi yang Anda butuhkan.</p>
+        </div>
     
     @if(session('success'))
         <div class="alert alert-success">
